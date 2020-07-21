@@ -7,8 +7,9 @@ build/
 node_modules/
 dist/
 .cache
-client-config.js
+clientConfig.js
 .next
 wooConfig.js
 
 .now
+.history

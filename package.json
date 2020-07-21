@@ -7,7 +7,7 @@
     "build": "npm run build-fragment && next build",
     "build-fragment": "node schemaQuery.js",
     "start": "next start",
-	"deploy": "npm run build && now"
+    "deploy": "npm run build && now"
   },
   "author": "Imran Sayed",
   "license": "ISC",

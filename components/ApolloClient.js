@@ -7,7 +7,7 @@ import { ApolloLink } from "apollo-link";
 import { IntrospectionFragmentMatcher } from 'apollo-cache-inmemory';
 import introspectionQueryResultData from '../fragmentTypes';
 
-import clientConfig from './../client-config';
+import clientConfig from './../clientConfig';
 
 // Fragment matcher.
 const fragmentMatcher = new IntrospectionFragmentMatcher({
