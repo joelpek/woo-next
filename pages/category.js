@@ -6,7 +6,7 @@ import PRODUCT_BY_CATEGORY_ID from "../queries/product-by-category";
 
 const Category = withRouter((props) => {
   const { categoryName, products } = props;
-  console.log(products);
+//   console.log(products);
 
   return (
     <Layout>

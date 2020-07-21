@@ -5,7 +5,7 @@ import clientConfig from "../clientConfig";
 const Product = (props) => {
   const { product } = props;
 
-  console.log("test", product);
+//   console.log("test", product);
 
   return (
     // @TODO Need to handle Group products differently.

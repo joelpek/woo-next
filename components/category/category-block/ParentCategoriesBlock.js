@@ -3,7 +3,7 @@ import ProductCategoryBlock from "./ParentCategoryBlock";
 const ParentCategoriesBlock = ( props ) => {
 
 	const { productCategories } = props;
-	console.log(productCategories);
+	// console.log(productCategories);
 
 	return (
 

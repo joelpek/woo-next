@@ -5,7 +5,7 @@ import gql from "graphql-tag";
  */
 const GET_CATEGORIES_QUERY = gql`query {
 
-	productCategories(first: 3) {
+	productCategories {
 		nodes {
 			id
 			name
