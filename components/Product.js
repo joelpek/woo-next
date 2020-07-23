@@ -5,7 +5,7 @@ import clientConfig from "../clientConfig";
 const Product = (props) => {
   const { product } = props;
 
-//   console.log("test", product);
+  //   console.log("test", product);
 
   return (
     // @TODO Need to handle Group products differently.
@@ -20,7 +20,11 @@ const Product = (props) => {
           href={`/product?slug=${product.slug}-${product.productId}`}
         >
           <a>
-            <img src={product.image.sourceUrl} alt="Product image" />
+            <img
+              className="link-image"
+              src={product.image.sourceUrl}
+              alt="Product image"
+            />
           </a>
         </Link>
         <div className="card-body text-center">

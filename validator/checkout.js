@@ -1,6 +1,6 @@
 import validator from 'validator';
 import isEmpty from './isEmpty';
-import config from '../client-config';
+import config from '../clientConfig';
 
 
 const validateAndSanitizeCheckoutForm = ( data ) => {
@@ -10,7 +10,7 @@ const validateAndSanitizeCheckoutForm = ( data ) => {
 
 	/**
 	 * Set the firstName value equal to an empty string if user has not entered the firstName, otherwise the Validator.isEmpty() wont work down below.
-	 * Note that the isEmpty() here is our custom function defined in is-empty.js and
+	 * Note that the isEmpty() here is our custom function defined in isEmpty.js and
 	 * Validator.isEmpty() down below comes from validator library.
 	 * Similarly we do it for for the rest of the fields
 	 */
