@@ -18,10 +18,10 @@ const GET_CART = gql`
             reviewCount
             image {
               id
-                sourceUrl
-                srcSet
-                altText
-                title       
+              sourceUrl
+              srcSet
+              altText
+              title
             }
             galleryImages {
               nodes {
@@ -29,10 +29,9 @@ const GET_CART = gql`
                 sourceUrl
                 srcSet
                 altText
-                title   
+                title
               }
             }
-
           }
           variation {
             id
@@ -49,7 +48,7 @@ const GET_CART = gql`
               sourceUrl
               srcSet
               altText
-              title      
+              title
             }
             attributes {
               nodes {
@@ -94,6 +93,15 @@ const GET_CART = gql`
       feeTotal
       discountTax
       discountTotal
+      chosenShippingMethod
+      contentsTax
+      contentsTotal
+      discountTotal
+      chosenShippingMethod
+      needsShippingAddress
+      fees {
+        id
+      }
     }
   }
 `;

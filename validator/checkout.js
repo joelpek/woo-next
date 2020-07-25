@@ -28,6 +28,7 @@ const validateAndSanitizeCheckoutForm = ( data ) => {
 	data.createAccount = ( ! isEmpty( data.createAccount ) ) ? data.createAccount : '';
 	data.orderNotes = ( ! isEmpty( data.orderNotes ) ) ? data.orderNotes : '';
 	data.paymentMethod = ( ! isEmpty( data.paymentMethod ) ) ? data.paymentMethod : '';
+	data.shippingMethods = ( ! isEmpty( data.shippingMethods ) ) ? data.shippingMethods : '';
 
 	/**
 	 * Checks for error if required is true
@@ -94,6 +95,7 @@ const validateAndSanitizeCheckoutForm = ( data ) => {
 	sanitizedData.createAccount = data.createAccount;
 	addErrorAndSanitizedData( 'orderNotes', '', 0, 254, 'string', false );
 	addErrorAndSanitizedData( 'paymentMethod', 'Payment mode field', 2, 50, 'string', true );
+	addErrorAndSanitizedData( 'shippingMethods', 'Shipping mode field', 2, 50, 'string', true );
 
 
 	return {

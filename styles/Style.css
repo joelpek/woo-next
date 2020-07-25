@@ -104,7 +104,14 @@ button.woo-next-large-black-btn {
   position: absolute;
   bottom: 0;
   width: 100%;
-  height: 10vh; /* Footer height */
+}
+
+.shippingMethods {
+  margin-bottom: 3vh;
+}
+
+.woo-next-checkout-form {
+  margin-bottom: 5vh;
 }
 
 @media only screen and (max-width: 600px) {
@@ -374,4 +381,9 @@ td.woo-next-cart-qty {
 
 #content-wrap {
   padding-bottom: 10vh; /* Footer height */
+}
+
+.card-text {
+  margin-top: 2vh;
+  margin-bottom: 2vh;
 }

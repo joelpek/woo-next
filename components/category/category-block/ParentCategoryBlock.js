@@ -10,8 +10,8 @@ const ParentCategoryBlock = (props) => {
         ""
       ) : (
         <Link
-          as={`/product-category/${category.slug}`}
-          href={`/product-category?slug=${category.slug}`}
+          as={`/category/${category.slug}-${category.id}`}
+          href={`/category?slug=${category.slug}-${category.id}`}
         >
           <a>
             <h3 className="card-header text-center">{category.name}</h3>

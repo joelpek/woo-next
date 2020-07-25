@@ -1,14 +1,35 @@
-const CheckoutCartItem = ( { item } ) => {
+import Link from "next/link";
 
-	return (
-		<tr className="woo-next-cart-item" key={ item.productId }>
-			<td className="woo-next-cart-element">
-				<img width="64" src={ item.image.sourceUrl } srcSet={ item.image.srcSet } alt={item.image.title}/>
-			</td>
-			<td className="woo-next-cart-element">{ item.name }</td>
-			<td className="woo-next-cart-element">{ item.totalPrice }</td>
-		</tr>
-	)
+const CheckoutCartItem = ({ item }) => {
+  console.log(item);
+  return (
+    <tr className="woo-next-cart-item" key={item.productId}>
+      <td className="woo-next-cart-element">
+        <Link
+          as={`/product/${item.slug}-${item.productId}`}
+          href={`/product?slug=${item.slug}-${item.productId}`}
+        >
+          <a className="coCartItemImgLink">
+            <img
+              width="64"
+              src={item.image.sourceUrl}
+              srcSet={item.image.srcSet}
+              alt={item.image.title}
+            />
+          </a>
+        </Link>
+      </td>
+      <td className="woo-next-cart-element">
+        <Link
+          as={`/product/${item.slug}-${item.productId}`}
+          href={`/product?slug=${item.slug}-${item.productId}`}
+        >
+          {item.name}
+        </Link>
+      </td>
+      <td className="woo-next-cart-element">{item.totalPrice}</td>
+    </tr>
+  );
 };
 
 export default CheckoutCartItem;

@@ -21,7 +21,7 @@ const Layout = (props) => {
               />
               <link
                 rel="stylesheet"
-                href="https://bootswatch.com/4/slate/bootstrap.min.css"
+                href="https://bootswatch.com/4/spacelab/bootstrap.min.css"
               />
               <link
                 rel="apple-touch-icon"

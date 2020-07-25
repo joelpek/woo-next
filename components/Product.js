@@ -1,11 +1,12 @@
 import Link from "next/link";
 import AddToCartButton from "../components/cart/AddToCartButton";
-import clientConfig from "../clientConfig";
 
 const Product = (props) => {
   const { product } = props;
+  //   TODO: add default image url
+  const imgSrc = product.image ? product.image.sourceUrl : "";
 
-  //   console.log("test", product);
+  console.log("test", product);
 
   return (
     // @TODO Need to handle Group products differently.
@@ -20,11 +21,7 @@ const Product = (props) => {
           href={`/product?slug=${product.slug}-${product.productId}`}
         >
           <a>
-            <img
-              className="link-image"
-              src={product.image.sourceUrl}
-              alt="Product image"
-            />
+            <img className="link-image" src={imgSrc} alt="Product image" />
           </a>
         </Link>
         <div className="card-body text-center">
