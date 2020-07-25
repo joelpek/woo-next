@@ -13,3 +13,6 @@ wooConfig.js
 
 .now
 .history
+.vercel
+orderExample.json
+orderExamplePaid.js
