@@ -104,6 +104,8 @@ button.woo-next-large-black-btn {
   position: absolute;
   bottom: 0;
   width: 100%;
+  /* height: 16vh; */
+  margin-top: 5vh;
 }
 
 .shippingMethods {
@@ -111,7 +113,7 @@ button.woo-next-large-black-btn {
 }
 
 .woo-next-checkout-form {
-  margin-bottom: 5vh;
+  margin-bottom: 8vh;
 }
 
 @media only screen and (max-width: 600px) {
@@ -298,7 +300,7 @@ button.woo-next-large-black-btn {
 }
 
 .woo-next-view-cart-btn {
-  margin-left: 10px;
+  margin: 10px;
 }
 
 /* Cart Page */
@@ -313,6 +315,12 @@ button.woo-next-large-black-btn {
 .woo-next-cart-close-icon i {
   font-size: 20px;
   cursor: pointer;
+}
+
+@media only screen and (max-width: 510px) {
+  #page-container {
+    display: inline-table !important;
+  }
 }
 
 /* Cart menu button*/
@@ -361,7 +369,7 @@ td.woo-next-cart-qty {
 }
 
 .link-image {
-  height: 200px;
+  height: 250px;
   object-fit: cover;
 }
 
@@ -383,7 +391,39 @@ td.woo-next-cart-qty {
   padding-bottom: 10vh; /* Footer height */
 }
 
+.card-header {
+  height: 90px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.card-header-category {
+  /* height: 120px; */
+}
+
 .card-text {
   margin-top: 2vh;
   margin-bottom: 2vh;
+}
+
+.basic-text {
+  padding: 0 20px;
+  margin: 20px;
+}
+
+@media screen and (max-width: 1641px) {
+  .card-header {
+    height: 180px;
+  }
+}
+@media screen and (max-width: 991px) {
+  .card-header {
+    height: 90px;
+  }
+}
+@media screen and (max-width: 457px) {
+  .card-header {
+    height: 160px;
+  }
 }

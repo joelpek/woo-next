@@ -9,7 +9,7 @@
     "start": "next start",
     "deploy": "npm run build && now"
   },
-  "author": "Imran Sayed",
+  "author": "Joel Pekari, Imran Sayed",
   "license": "ISC",
   "engines": {
     "node": ">=8.12.0",

@@ -12,18 +12,20 @@ const Product = (props) => {
     // @TODO Need to handle Group products differently.
     undefined !== product && "GroupProduct" !== product.__typename ? (
       <div className="col-lg-3 col-md-6 col-sm-12">
-        <h3 className="card-header text-center">
-          {product.name ? product.name : ""}
-        </h3>
+        <div className="card-top text-center">
+          <h3 className="card-header text-center">
+            {product.name ? product.name : ""}
+          </h3>
 
-        <Link
-          as={`/product/${product.slug}-${product.productId}`}
-          href={`/product?slug=${product.slug}-${product.productId}`}
-        >
-          <a>
-            <img className="link-image" src={imgSrc} alt="Product image" />
-          </a>
-        </Link>
+          <Link
+            as={`/product/${product.slug}-${product.productId}`}
+            href={`/product?slug=${product.slug}-${product.productId}`}
+          >
+            <a>
+              <img className="link-image" src={imgSrc} alt="Product image" />
+            </a>
+          </Link>
+        </div>
         <div className="card-body text-center">
           <h6 className="card-subtitle mb-3">{product.price}</h6>
           <AddToCartButton product={product} />

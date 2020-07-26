@@ -114,8 +114,8 @@ const CartItemsContainer = () => {
     <div className="content-wrap-cart">
       {cart ? (
         <div className="woo-next-cart-wrapper container">
-          <h1 className="woo-next-cart-heading mt-5">Cart</h1>
-          <table className="table table-hover">
+          <h2 className="woo-next-cart-heading mt-5">Cart</h2>
+          <table className="cart-table table table-hover">
             <thead>
               <tr className="woo-next-cart-head-container">
                 <th className="woo-next-cart-heading-el" scope="col" />

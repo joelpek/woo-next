@@ -14,7 +14,7 @@ const ParentCategoryBlock = (props) => {
           href={`/category?slug=${category.slug}-${category.id}`}
         >
           <a>
-            <h3 className="card-header text-center">{category.name}</h3>
+            <h3 className="card-header-category text-center">{category.name}</h3>
             <img
               className="link-image"
               src={null !== category.image ? category.image.sourceUrl : ""}
