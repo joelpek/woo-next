@@ -52,7 +52,7 @@ const CartItem = ({
   console.log(item);
   return (
     <tr className="woo-next-cart-item" key={item.productId}>
-      <th className="woo-next-cart-element woo-next-cart-el-close">
+      <th className="woo-next-cart-element woo-next-cart-el-close cart-rmv">
         {/* Remove item */}
         <span
           className="woo-next-cart-close-icon"
@@ -63,9 +63,8 @@ const CartItem = ({
           <i className="fa fa-times-circle" />
         </span>
       </th>
-      <td className="woo-next-cart-element">
+      <td className="woo-next-cart-element cart-img">
         <Link
-          
           as={`/product/${item.slug}-${item.productId}`}
           href={`/product?slug=${item.slug}-${item.productId}`}
         >
@@ -82,23 +81,23 @@ const CartItem = ({
       </td>
       <td className="woo-next-cart-element">
         <Link
-          
           as={`/product/${item.slug}-${item.productId}`}
           href={`/product?slug=${item.slug}-${item.productId}`}
         >
           {item.name}
         </Link>
       </td>
-      <td className="woo-next-cart-element">
+      <td className="woo-next-cart-element cart-price">
         {"string" !== typeof item.price ? item.price.toFixed(2) : item.price}
       </td>
 
       {/* Qty Input */}
-      <td className="woo-next-cart-element woo-next-cart-qty">
+      <td className="woo-next-cart-element woo-next-cart-qty cart-qty">
         {/* @TODO Need to update this with graphQL query */}
         <input
           type="number"
           min="1"
+          size="1"
           data-cart-key={item.cartKey}
           className={`woo-next-cart-qty-input form-control ${
             updateCartProcessing ? "woo-next-cart-disabled" : ""

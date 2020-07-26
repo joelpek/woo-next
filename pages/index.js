@@ -33,7 +33,7 @@ const Index = (props) => {
     </Layout>
   );
 };
-
+  
 Index.getInitialProps = async () => {
   const result = await client.query({
     query: PRODUCTS_AND_CATEGORIES_QUERY,

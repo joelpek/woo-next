@@ -235,7 +235,7 @@ export const getFormattedCart = (data) => {
     product.qty = givenProducts[i].quantity;
     product.price = total / product.qty;
     product.totalPrice = givenProducts[i].total;
-    product.subtotal = givenProducts[i].subtotal;
+    product.subtotal = givenProduct.subtotal;
     product.slug = givenProduct.slug;
     product.image = {
       sourceUrl: givenProduct.image.sourceUrl,

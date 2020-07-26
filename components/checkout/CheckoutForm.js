@@ -1,4 +1,5 @@
 import { useState, useContext, useEffect } from "react";
+import { v4 } from "uuid";
 import Billing from "./Billing";
 import YourOrder from "./YourOrder";
 import PaymentModes from "./PaymentModes";
@@ -102,7 +103,7 @@ const CheckoutForm = () => {
   ] = useMutation(SHIPPING_MUTATION, {
     variables: {
       input: {
-        clientMutationId: "1",
+        clientMutationId: v4(),
         shippingMethods: shippingMethods,
       },
     },
@@ -159,8 +160,8 @@ const CheckoutForm = () => {
       setShippingMethods(input.shippingMethods);
       shipping();
       const newState = { ...input, [event.target.name]: input.shippingMethods };
-	  setInput(newState);
-	  console.log(newState.shippingMethods);
+      setInput(newState);
+      console.log(newState.shippingMethods);
     } else {
       console.log(event.target.name, event.target.value);
       const newState = { ...input, [event.target.name]: event.target.value };

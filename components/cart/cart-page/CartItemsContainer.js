@@ -118,15 +118,15 @@ const CartItemsContainer = () => {
           <table className="cart-table table table-hover">
             <thead>
               <tr className="woo-next-cart-head-container">
-                <th className="woo-next-cart-heading-el" scope="col" />
-                <th className="woo-next-cart-heading-el" scope="col" />
+                <th className="woo-next-cart-heading-el cart-rmv" scope="col" />
+                <th className="woo-next-cart-heading-el cart-img" scope="col" />
                 <th className="woo-next-cart-heading-el" scope="col">
                   Product
                 </th>
-                <th className="woo-next-cart-heading-el" scope="col">
+                <th className="woo-next-cart-heading-el cart-price" scope="col">
                   Price
                 </th>
-                <th className="woo-next-cart-heading-el" scope="col">
+                <th className="woo-next-cart-heading-el cart-qty" scope="col">
                   Quantity
                 </th>
                 <th className="woo-next-cart-heading-el" scope="col">

@@ -49,6 +49,8 @@ const Layout = (props) => {
               <div id="content-wrap">
                 <Header />
                 {props.children}
+              </div>
+              <div class="footer-wrap">
                 <Footer />
               </div>
             </div>
