@@ -49,7 +49,7 @@ const CartItem = ({
       }
     }
   };
-  console.log(item);
+  //   console.log(item);
   return (
     <tr className="woo-next-cart-item" key={item.productId}>
       <th className="woo-next-cart-element woo-next-cart-el-close cart-rmv">
@@ -87,9 +87,7 @@ const CartItem = ({
           {item.name}
         </Link>
       </td>
-      <td className="woo-next-cart-element cart-price">
-        {"string" !== typeof item.price ? item.price.toFixed(2) : item.price}
-      </td>
+      <td className="woo-next-cart-element cart-price">{item.subtotal}</td>
 
       {/* Qty Input */}
       <td className="woo-next-cart-element woo-next-cart-qty cart-qty">
@@ -116,9 +114,7 @@ const CartItem = ({
         )}
       </td>
       <td className="woo-next-cart-element">
-        {"string" !== typeof item.totalPrice
-          ? item.totalPrice.toFixed(2)
-          : item.totalPrice}
+        {item.totalPlustax}
       </td>
     </tr>
   );

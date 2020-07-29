@@ -10,7 +10,7 @@ const Category = withRouter((props) => {
 
   return (
     <Layout>
-      <div className="content-wrap">
+      <div className="content-wrap-category">
         {categoryName ? (
           <h3 className="product-container pl-5">{categoryName}</h3>
         ) : (

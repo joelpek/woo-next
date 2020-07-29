@@ -4,14 +4,12 @@ import Header from "./Header";
 import Footer from "./Footer";
 import "../styles/Style.css";
 import client from "./ApolloClient";
-import { ApolloProvider } from "react-apollo";
-import { ApolloProvider as ApolloHooksProvider } from "@apollo/react-hooks";
+import { ApolloProvider } from "@apollo/react-hooks";
 
 const Layout = (props) => {
   return (
     <AppProvider>
-      <ApolloProvider client={client}>
-        <ApolloHooksProvider client={client}>
+        <ApolloProvider client={client}>
           <div>
             <Head>
               <title>ePro Consulting - IT insight on demand</title>
@@ -50,13 +48,12 @@ const Layout = (props) => {
                 <Header />
                 {props.children}
               </div>
-              <div class="footer-wrap">
+              <div className="footer-wrap">
                 <Footer />
               </div>
             </div>
           </div>
-        </ApolloHooksProvider>
-      </ApolloProvider>
+        </ApolloProvider>
     </AppProvider>
   );
 };

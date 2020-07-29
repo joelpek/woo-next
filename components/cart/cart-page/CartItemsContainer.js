@@ -29,7 +29,7 @@ const CartItemsContainer = () => {
 
       // Update cart data in React Context.
       setCart(updatedCart);
-      console.log(cart);
+    //   console.log(cart);
     },
   });
 

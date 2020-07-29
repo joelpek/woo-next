@@ -94,10 +94,18 @@ const GET_CART = gql`
       discountTax
       discountTotal
       chosenShippingMethod
+      availableShippingMethods {
+        packageDetails
+        supportsShippingCalculator
+        rates {
+          id
+          cost
+          label
+        }
+      }
       contentsTax
       contentsTotal
       discountTotal
-      chosenShippingMethod
       needsShippingAddress
       fees {
         id

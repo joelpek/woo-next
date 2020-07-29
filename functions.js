@@ -7,10 +7,12 @@ import { v4 } from "uuid";
  * @return {any}
  */
 export const getFloatVal = (string) => {
-  let floatValue = string.match(/[+-]?\d+(\.\d+)?/g)[0];
-  return null !== floatValue
-    ? parseFloat(parseFloat(floatValue).toFixed(2))
-    : "";
+  let floatValue = string.match(/[+-]?\d+(\,\d+)?/g)[0];
+  console.log(floatValue);
+  floatValue = floatValue.replace(",", ".");
+  console.log(floatValue);
+  console.log(parseFloat(floatValue).toFixed(2));
+  return null !== floatValue ? parseFloat(floatValue) : "";
 };
 
 /**
@@ -42,7 +44,7 @@ export const addFirstProduct = (product) => {
  * @param {Object} product Product
  * @param {Integer} productPrice Product Price
  * @param {Integer} qty Quantity
- * @return {{image: *, productId: *, totalPrice: number, price: *, qty: *, name: *}}
+ * @return {{image: *, productId: *, totalPrice: number, price: *, slug: *, qty: *, name: *}}
  */
 export const createNewProduct = (product, productPrice, qty) => {
   return {
@@ -228,14 +230,34 @@ export const getFormattedCart = (data) => {
     const givenProduct = givenProducts[i].product;
     const product = {};
     const total = getFloatVal(givenProducts[i].total);
+    // // TODO: dynamic tax calculation
+    let subtotal = getFloatVal(givenProducts[i].subtotal);
+    console.log(subtotal);
+    let subtotalTax = getFloatVal(givenProducts[i].subtotalTax);
+    console.log(subtotalTax);
+    let totalPlustax = subtotal + subtotalTax;
+    console.log(totalPlustax);
+
+    function currencyFormat(num) {
+      return (
+        "€" +
+        num
+          .toFixed(2)
+          .replace(".", ",") // replace decimal point character with ,
+          .replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.")
+      ); // use . as a separator
+    }
+
+    totalPlustax = currencyFormat(totalPlustax);
 
     product.productId = givenProduct.productId;
     product.cartKey = givenProducts[i].key;
     product.name = givenProduct.name;
     product.qty = givenProducts[i].quantity;
     product.price = total / product.qty;
-    product.totalPrice = givenProducts[i].total;
-    product.subtotal = givenProduct.subtotal;
+    product.totalPrice = total;
+    product.subtotal = givenProducts[i].subtotal;
+    product.totalPlustax = totalPlustax;
     product.slug = givenProduct.slug;
     product.image = {
       sourceUrl: givenProduct.image.sourceUrl,

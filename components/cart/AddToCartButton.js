@@ -97,7 +97,7 @@ const AddToCart = (props) => {
     },
     onError: (error) => {
       if (error) {
-        console.log(error);
+        // console.log(error);
         setRequestError(error.graphQLErrors[0].message);
       }
     },
@@ -131,7 +131,7 @@ const AddToCart = (props) => {
       {showViewCart ? (
         <Link href="/cart">
           <button className="woo-next-view-cart-btn btn btn-secondary">
-            View Cart
+            <a>View Cart</a>
           </button>
         </Link>
       ) : (

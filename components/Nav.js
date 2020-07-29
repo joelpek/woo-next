@@ -12,7 +12,7 @@ const Nav = () => {
         <Link href="/">
           <a className="">
             {/* ePro Consulting */}
-            <img src="/logo.svg" alt="logo" style={{ width: "20vw" }}></img>
+            <img src="/logo.svg" alt="logo"></img>
           </a>
         </Link>
       </div>
@@ -20,16 +20,26 @@ const Nav = () => {
       {/*Navigation menu*/}
       <div className={`woo-next-sub-menu-wrap ${show ? "show" : ""}`} id="">
         <ul className="navbar-nav">
-          {/* <li className="nav-item">
-            <Link href="/categories">
-              <a className="nav-link">Categories</a>
+          <li className="nav-item">
+            <Link href="/products">
+              <a className="nav-link">Products</a>
             </Link>
-          </li> */}
-          {/* <li className="nav-item">
+          </li>
+          <li className="nav-item">
             <Link href="/account">
               <a className="nav-link">My Account</a>
             </Link>
-          </li> */}
+          </li>
+          <li className="nav-item">
+            <Link href="/t-and-c">
+              <a className="nav-link">Terms and Conditions</a>
+            </Link>
+          </li>
+          <li className="nav-item">
+            <Link href="/privacy-policy">
+              <a className="nav-link">Privacy</a>
+            </Link>
+          </li>
         </ul>
       </div>
 

@@ -14,8 +14,6 @@ import GET_CART from "../../queries/get-cart";
 import CHECKOUT_MUTATION from "../../mutations/checkout";
 import SHIPPING_MUTATION from "../../mutations/update-shipping";
 
-let shippingMethods = "free_shipping";
-
 const CheckoutForm = () => {
   //   const initialState = {
   //     firstName: "",
@@ -52,14 +50,14 @@ const CheckoutForm = () => {
     createAccount: false,
     orderNotes: "",
     paymentMethod: "",
-    shippingMethods: "",
+    shippingMethod: "",
     errors: null,
   };
 
   const [cart, setCart] = useContext(AppContext);
   const [input, setInput] = useState(initialState);
   const [orderData, setOrderData] = useState(null);
-  const [shippingMethods, setShippingMethods] = useState("");
+  const [shippingMethods, setShippingMethods] = useState([]);
   const [requestError, setRequestError] = useState(null);
 
   // Get Cart Data.
@@ -71,7 +69,7 @@ const CheckoutForm = () => {
       // Update cart in the localStorage.
       const updatedCart = getFormattedCart(data);
       localStorage.setItem("woo-next-cart", JSON.stringify(updatedCart));
-      console.log(updatedCart);
+      //   console.log(updatedCart);
       // Update cart data in React Context.
       setCart(updatedCart);
     },
@@ -96,6 +94,8 @@ const CheckoutForm = () => {
     },
   });
 
+  let shippingMethodsExist = false;
+
   //   Shipping Mutation.
   const [
     shipping,
@@ -104,17 +104,22 @@ const CheckoutForm = () => {
     variables: {
       input: {
         clientMutationId: v4(),
-        shippingMethods: shippingMethods,
+        shippingMethods: input.shippingMethod,
       },
     },
     onCompleted: () => {
-      console.log(data, loading, error);
-      console.log(getFormattedCart(data));
-      console.log(data);
-      refetch();
+      console.log("shippingResponse", data);
+      if (data.cart.availableShippingMethods.length > 0) {
+        let availableShippingMethods = data.cart.availableShippingMethods[0].rates.map(
+          (x) => x.id
+        );
+        setShippingMethods(availableShippingMethods);
+      }else {
+        setShippingMethods([])
+      }
+      // refetch();
     },
     onError: (error) => {
-      //   debugger;
       if (error) {
         console.log(error);
         debugger;
@@ -134,7 +139,6 @@ const CheckoutForm = () => {
     const result = validateAndSanitizeCheckoutForm(input);
     if (!result.isValid) {
       setInput({ ...input, errors: result.errors });
-      //   console.log(input.shippingMethods);
       return;
     }
     const checkOutData = createCheckoutData(input);
@@ -155,13 +159,11 @@ const CheckoutForm = () => {
       const newState = { ...input, [event.target.name]: !input.createAccount };
       setInput(newState);
     } else if ("shippingMethods" === event.target.name) {
-      setShippingMethods(event.target.value);
-      console.log(shippingMethods);
-      setShippingMethods(input.shippingMethods);
-      shipping();
-      const newState = { ...input, [event.target.name]: input.shippingMethods };
+      console.log("shippingMethods", input.shippingMethod);
+      const newState = { ...input, [event.target.name]: event.target.value };
       setInput(newState);
-      console.log(newState.shippingMethods);
+      console.log("STATE shippingMethods", newState.shippingMethods);
+      shipping();
     } else {
       console.log(event.target.name, event.target.value);
       const newState = { ...input, [event.target.name]: event.target.value };
@@ -173,16 +175,15 @@ const CheckoutForm = () => {
     if (null !== orderData) {
       // Call the checkout mutation when the value for orderData changes/updates.
       checkout();
-      console.log(checkoutResponse);
+      //   console.log(checkoutResponse);
     }
   }, [orderData]);
 
-  //   useEffect(() => {
-  //     if (null !== shippingMethods) {
-  //       // Call the checkout mutation when the value for orderData changes/updates.
-  //       shipping();
-  //     }
-  //   }, [shippingMethods]);
+  // on component mount: check if shipping available and display options
+  useEffect(() => {
+    shipping();
+  }, []);
+
   return (
     <>
       {cart ? (
@@ -198,16 +199,17 @@ const CheckoutForm = () => {
               {/*	Order*/}
               <h2 className="mb-4">Your Order</h2>
               <YourOrder cart={cart} />
-              <div className="shippingMethods">
-                {/*Shipping*/}
-                <h2 className="mb-4">Shipping Method</h2>
-                <ShippingModes
-                  id="shippingMethods"
-                  input={input}
-                  handleOnChange={handleOnChange}
-                />
-              </div>
-
+              {/*Shipping*/}
+              {shippingMethods.length > 0 && (
+                <div className="shippingMethods">
+                  <h2 className="mb-4">Shipping Method</h2>
+                  <ShippingModes
+                    id="shippingMethods"
+                    input={input}
+                    handleOnChange={handleOnChange}
+                  />
+                </div>
+              )}
               <div className="paymentMethod">
                 {/*Payment*/}
                 <h2 className="mb-4">Payment Method</h2>
@@ -227,7 +229,13 @@ const CheckoutForm = () => {
                 <p>Processing Order...</p>
               )}
               {requestError && (
-                <p>Error : {requestError} 😕 Please try again</p>
+                <p>
+                  Error : {requestError} 😕 Please select another shipping
+                  method.
+                </p>
+              )}
+              {shippingError && (
+                <p>Error : {shippingError} 😕 Please check the form.</p>
               )}
             </div>
           </div>
@@ -236,9 +244,10 @@ const CheckoutForm = () => {
         ""
       )}
 
-      {/*	Show message if Order Success*/}
-      <ShippingSuccess response={shippingResponse} />
-      {/* <ShippingSuccess response={shippingResponse} /> */}
+      <div>
+        {/*	Show message if Order Success*/}
+        <ShippingSuccess response={shippingResponse} />
+      </div>
       <div>
         <OrderSuccess response={checkoutResponse} />
       </div>

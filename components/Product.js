@@ -11,7 +11,7 @@ const Product = (props) => {
   return (
     // @TODO Need to handle Group products differently.
     undefined !== product && "GroupProduct" !== product.__typename ? (
-      <div className="col-lg-3 col-md-6 col-sm-12">
+      <div className="product-card col-lg-3 col-md-6 col-sm-12">
         <div className="card-top text-center">
           <h3 className="card-header text-center">
             {product.name ? product.name : ""}

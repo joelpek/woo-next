@@ -2,7 +2,7 @@ import { Fragment } from "react";
 import CheckoutCartItem from "./CheckoutCartItem";
 
 const YourOrder = ({ cart }) => {
-  console.log(cart);
+//   console.log(cart);
   return (
     <Fragment>
       {cart ? (
