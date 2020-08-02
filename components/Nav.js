@@ -30,16 +30,16 @@ const Nav = () => {
               <a className="nav-link">My Account</a>
             </Link>
           </li>
-          <li className="nav-item">
+          {/* <li className="nav-item">
             <Link href="/t-and-c">
               <a className="nav-link">Terms and Conditions</a>
             </Link>
           </li>
           <li className="nav-item">
             <Link href="/privacy-policy">
-              <a className="nav-link">Privacy</a>
+              <a className="nav-link">Privacy Policy</a>
             </Link>
-          </li>
+          </li> */}
         </ul>
       </div>
 

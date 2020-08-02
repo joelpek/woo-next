@@ -6,7 +6,7 @@ const CheckoutCartItem = ({ item }) => {
     <tr className="woo-next-cart-item" key={item.productId}>
       <td className="woo-next-cart-element">
         <Link
-          as={`/product/${item.slug}-${item.productId}`}
+          // as={`/product/${item.slug}-${item.productId}`}
           href={`/product?slug=${item.slug}-${item.productId}`}
         >
           <a className="coCartItemImgLink">
@@ -21,7 +21,7 @@ const CheckoutCartItem = ({ item }) => {
       </td>
       <td className="woo-next-cart-element">
         <Link
-          as={`/product/${item.slug}-${item.productId}`}
+          // as={`/product/${item.slug}-${item.productId}`}
           href={`/product?slug=${item.slug}-${item.productId}`}
         >
           {item.name}

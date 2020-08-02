@@ -10,7 +10,7 @@ const ParentCategoryBlock = (props) => {
         ""
       ) : (
         <Link
-          as={`/category/${category.slug}-${category.id}`}
+          // as={`/category/${category.slug}-${category.id}`}
           href={`/category?slug=${category.slug}-${category.id}`}
         >
           <a>

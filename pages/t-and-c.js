@@ -8,7 +8,7 @@ const TandC = (props) => {
   
   let content
   pages.forEach((e) => {
-    if (e.pageId === 617) content = e.content;
+    if (e.pageId === 627) content = e.content;
   });
   console.log(content);
 
