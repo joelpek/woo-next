@@ -128,16 +128,19 @@ button.woo-next-large-black-btn {
 
 .footer-text {
   color: #fff;
+  text-align: center;
+  margin: 16px;
+  line-height: 2;
 }
 
 .footer .fa,
 .footer .fas {
-  padding: 24px;
+  /* padding: 24px; */
   font-size: 18px;
   width: 42px;
   text-align: center;
   text-decoration: none;
-  margin: 5px 7px;
+  margin: 5px;
   border-radius: 3px;
 }
 
@@ -155,10 +158,15 @@ button.woo-next-large-black-btn {
   display: flex;
   list-style: none;
 }
+
 .footer-links2 {
   display: flex;
   list-style: none;
-  flex-direction: column;
+}
+
+.footer-link {
+  display: inline-block;
+  width: 100%;
 }
 
 .account {
@@ -326,17 +334,6 @@ td.woo-next-cart-qty {
   margin-right: 0;
 }
 
-#page-container {
-  position: relative;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-}
-
-#content-wrap {
-  padding-bottom: 10vh; /* Footer height */
-}
-
 .card-header {
   height: 90px;
   display: flex;
@@ -423,6 +420,20 @@ td.woo-next-cart-qty {
     height: 120px;
   }
 }
+@media screen and (max-width: 870px) {
+  .footer {
+    flex-direction: column;
+  }
+
+  .footer-links2 {
+    margin-top: 24px;
+    display: flex;
+    list-style: none;
+    flex-direction: column;
+    text-align: center;
+    line-height: 2.5;
+  }
+}
 
 /* Media Query */
 /* Tablet */
@@ -430,26 +441,6 @@ td.woo-next-cart-qty {
 @media only screen and (max-width: 769px) {
   .woo-next-branding * {
     max-width: 45vw;
-  }
-}
-
-@media only screen and (max-width: 600px) {
-  .footer {
-    flex-direction: column;
-  }
-}
-
-@media only screen and (max-width: 600px) {
-  .footer-text {
-    text-align: center;
-    margin-top: 16px;
-  }
-}
-
-@media only screen and (max-width: 600px) {
-  .footer-links {
-    justify-content: center;
-    margin-top: 24px;
   }
 }
 
@@ -470,9 +461,9 @@ td.woo-next-cart-qty {
 }
 
 @media only screen and (max-width: 410px) {
-  #page-container {
+  /* #page-container {
     width: fit-content;
-  }
+  } */
   .woo-next-branding * {
     max-width: 55vw;
   }
@@ -647,4 +638,36 @@ q:after {
 table {
   border-collapse: collapse;
   border-spacing: 0;
+}
+
+td i a {
+  text-align: center;
+}
+
+* {
+  box-sizing: border-box;
+}
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+html,
+body {
+  height: 100%;
+  position: relative;
+}
+
+#page-container {
+  min-height: 100vh; /* will cover the 100% of viewport */
+  overflow: hidden;
+  display: block;
+  position: relative;
+  /* padding-bottom: 12vh; */
+}
+
+footer {
+  height: fit-content;
+  /* position: absolute; */
+  bottom: 0;
+  width: 100%;
 }

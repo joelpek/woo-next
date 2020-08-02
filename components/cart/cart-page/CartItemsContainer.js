@@ -29,7 +29,7 @@ const CartItemsContainer = () => {
 
       // Update cart data in React Context.
       setCart(updatedCart);
-    //   console.log(cart);
+      //   console.log(cart);
     },
   });
 
@@ -48,6 +48,8 @@ const CartItemsContainer = () => {
     onError: (error) => {
       if (error) {
         setRequestError(error.graphQLErrors[0].message);
+        client.resetStore();
+        client.clearStore();
       }
     },
   });
@@ -63,6 +65,8 @@ const CartItemsContainer = () => {
     onError: (error) => {
       if (error) {
         setRequestError(error.graphQLErrors[0].message);
+        client.resetStore();
+        client.clearStore();
       }
     },
   });
@@ -95,7 +99,9 @@ const CartItemsContainer = () => {
 
   // Clear the entire cart.
   const handleClearCart = (event) => {
-    event.stopPropagation();
+    if (event) {
+      event?.stopPropagation();
+    }
 
     if (clearCartProcessing) {
       return;

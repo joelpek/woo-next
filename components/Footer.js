@@ -1,5 +1,5 @@
 const Footer = () => (
-  <div className="footer">
+  <footer className="footer">
     <div className="footer-text">
       <p>© ePro Consulting 2020</p>
       <p className="text-gray">Made with 💙 and ☕️ in Finland.</p>
@@ -13,19 +13,19 @@ const Footer = () => (
       <li>
         <a
           href="https://github.com/joelpek/"
-          className="fa fa-github"
+          className="footer-link fa fa-github"
           target="_blank"
         ></a>
       </li>
       <li>
         <a href="https://joelpek.github.io/" target="_blank">
-          <i className="fas fa-info"></i>
+          <i className="footer-link fas fa-info"></i>
         </a>
       </li>
       <li>
         <a
           href="https://linkedin.com/in/joelpekari/"
-          className="fa fa-linkedin"
+          className="footer-link fa fa-linkedin"
           target="_blank"
         ></a>
       </li>
@@ -33,18 +33,18 @@ const Footer = () => (
     <ul className="footer-links2">
       <li>
         <a href="/t-and-c">
-          <i className="fas fa-file-contract"></i>
+          <i className="footer-link fas fa-file-contract"></i>
           Terms and Conditions
         </a>
       </li>
       <li>
         <a href="/privacy-policy">
-          <i className="fas fa-user-shield"></i>
+          <i className="footer-link fas fa-user-shield"></i>
           Privacy Policy
         </a>
       </li>
     </ul>
-  </div>
+  </footer>
 );
 
 export default Footer;
