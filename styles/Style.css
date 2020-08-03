@@ -101,11 +101,30 @@ button.woo-next-large-black-btn {
   display: flex;
 }
 
+/* @media (prefers-color-scheme: dark) {
+} */
+html,
+body {
+  height: 100%;
+  position: relative;
+}
+
+#page-container {
+  min-height: 100vh; /* will cover the 100% of viewport */
+  overflow: hidden;
+  display: block;
+  position: relative;
+  padding-bottom: 12vh;
+}
+
 .footer-wrap {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  margin-top: 5vh;
+  height: 12vh;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
 }
 
 .footer {
@@ -130,7 +149,6 @@ button.woo-next-large-black-btn {
   color: #fff;
   text-align: center;
   margin: 16px;
-  line-height: 2;
 }
 
 .footer .fa,
@@ -157,11 +175,16 @@ button.woo-next-large-black-btn {
 .footer-links1 {
   display: flex;
   list-style: none;
+  padding: 0;
 }
 
-.footer-links2 {
+.footer-links2,
+.footer-links2 * {
   display: flex;
+  flex-direction: row;
   list-style: none;
+  padding: 0;
+  margin-bottom: 0;
 }
 
 .footer-link {
@@ -422,15 +445,21 @@ td.woo-next-cart-qty {
   }
 }
 @media screen and (max-width: 870px) {
+  #page-container {
+    padding-bottom: 250px;
+  }
+
+  .footer-wrap {
+    height: auto;
+  }
+
   .footer {
     flex-direction: column;
   }
 
   .footer-links2 {
-    margin-top: 24px;
     display: flex;
-    list-style: none;
-    flex-direction: column;
+    /* flex-direction: column; */
     text-align: center;
     line-height: 2.5;
   }
@@ -465,6 +494,7 @@ td.woo-next-cart-qty {
   /* #page-container {
     width: fit-content;
   } */
+
   .woo-next-branding * {
     max-width: 55vw;
   }
@@ -497,36 +527,20 @@ td.woo-next-cart-qty {
     display: none;
     visibility: hidden;
   }
+
+  .footer-links2-text {
+    display: none !important;
+  }
 }
 
 @media only screen and (max-width: 252px) {
+  #page-container {
+    padding-bottom: 300px;
+  }
 }
 
 @media screen and (max-width: 240px) {
   .cart-qty {
     display: none;
   }
-}
-
-/* @media (prefers-color-scheme: dark) {
-} */
-html,
-body {
-  height: 100%;
-  position: relative;
-}
-
-#page-container {
-  min-height: 100vh; /* will cover the 100% of viewport */
-  overflow: hidden;
-  display: block;
-  position: relative;
-  padding-bottom: 12vh;
-}
-
-.footer-wrap {
-  height: 12vh;
-  position: absolute;
-  bottom: 0;
-  width: 100%;
 }

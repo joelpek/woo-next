@@ -18,7 +18,7 @@ const Product = (props) => {
           </h3>
 
           <Link
-            // as={`/product/${product.slug}-${product.productId}`}
+            as={`/product/${product.slug}-${product.productId}`}
             href={`/product?slug=${product.slug}-${product.productId}`}
           >
             <a>

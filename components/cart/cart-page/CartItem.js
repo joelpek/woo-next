@@ -65,7 +65,7 @@ const CartItem = ({
       </th>
       <td className="woo-next-cart-element cart-img">
         <Link
-          // as={`/product/${item.slug}-${item.productId}`}
+          as={`/product/${item.slug}-${item.productId}`}
           href={`/product?slug=${item.slug}-${item.productId}`}
         >
           <a className="cartItemImgLink">
@@ -81,7 +81,7 @@ const CartItem = ({
       </td>
       <td className="woo-next-cart-element">
         <Link
-          // as={`/product/${item.slug}-${item.productId}`}
+          as={`/product/${item.slug}-${item.productId}`}
           href={`/product?slug=${item.slug}-${item.productId}`}
         >
           {item.name}

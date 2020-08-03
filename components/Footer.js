@@ -34,13 +34,17 @@ const Footer = () => (
       <li>
         <a href="/t-and-c">
           <i className="footer-link fas fa-file-contract"></i>
-          Terms and Conditions
+          <p className="footer-links2-text">
+            Terms and Conditions
+          </p>
         </a>
       </li>
       <li>
         <a href="/privacy-policy">
           <i className="footer-link fas fa-user-shield"></i>
-          Privacy Policy
+          <p className="footer-links2-text">
+            Privacy Policy
+          </p>
         </a>
       </li>
     </ul>

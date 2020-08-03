@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Woocommerce Front end app with Nextjs",
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev --port=3005",
     "build": "npm run build-fragment && next build",
     "build-fragment": "node schemaQuery.js",
     "start": "next start",
@@ -18,9 +18,10 @@
   "dependencies": {
     "@apollo/react-hooks": "^4.0.0",
     "@zeit/next-css": "^1.0.1",
-    "apollo-boost": "^0.4.4",
+    "apollo-boost": "^0.4.9",
     "apollo-cache-inmemory": "^1.6.3",
     "apollo-link": "^1.2.13",
+    "apollo-link-error": "^1.1.13",
     "apollo-link-http": "^1.5.15",
     "express": "^4.17.1",
     "graphql": "^14.4.2",

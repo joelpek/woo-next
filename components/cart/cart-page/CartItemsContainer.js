@@ -47,9 +47,8 @@ const CartItemsContainer = () => {
     },
     onError: (error) => {
       if (error) {
-        setRequestError(error.graphQLErrors[0].message);
-        client.resetStore();
-        client.clearStore();
+        console.log(error);
+        // setRequestError(error.graphQLErrors[0].message);
       }
     },
   });
@@ -64,9 +63,8 @@ const CartItemsContainer = () => {
     },
     onError: (error) => {
       if (error) {
-        setRequestError(error.graphQLErrors[0].message);
-        client.resetStore();
-        client.clearStore();
+        console.log(error);
+        // setRequestError(error.graphQLErrors[0].message);
       }
     },
   });
