@@ -230,7 +230,7 @@ export const getFormattedCart = (data) => {
     const givenProduct = givenProducts[i].product;
     const product = {};
     const total = getFloatVal(givenProducts[i].total);
-    // // TODO: dynamic tax calculation
+    // TODO: dynamic tax calculation
     let subtotal = getFloatVal(givenProducts[i].subtotal);
     console.log(subtotal);
     let subtotalTax = getFloatVal(givenProducts[i].subtotalTax);
@@ -248,7 +248,9 @@ export const getFormattedCart = (data) => {
       ); // use . as a separator
     }
 
+    // custom formatting of displayed sums
     totalPlustax = currencyFormat(totalPlustax);
+    total = currencyFormat(total);
 
     product.productId = givenProduct.productId;
     product.cartKey = givenProducts[i].key;

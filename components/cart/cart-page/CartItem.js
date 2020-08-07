@@ -84,7 +84,7 @@ const CartItem = ({
           as={`/product/${item.slug}-${item.productId}`}
           href={`/product?slug=${item.slug}-${item.productId}`}
         >
-          {item.name}
+          <a>{item.name}</a>
         </Link>
       </td>
       <td className="woo-next-cart-element cart-price">{item.subtotal}</td>

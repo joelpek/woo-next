@@ -1,0 +1,22 @@
+{
+  "script": "-n",
+  "name": "-=",
+  "filter_env": [],
+  "namespace": "default",
+  "out_file": "-o",
+  "log_date_format": "YYYY-MM-DDTHH:mm:ss",
+  "time": true,
+  "env": {},
+  "merge_logs": true,
+  "vizion": true,
+  "autorestart": true,
+  "watch": false,
+  "instance_var": "NODE_APP_INSTANCE",
+  "pmx": true,
+  "automation": true,
+  "treekill": true,
+  "username": "joel",
+  "windowsHide": true,
+  "kill_retry_time": 100,
+  "write": true
+}

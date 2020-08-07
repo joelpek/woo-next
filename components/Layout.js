@@ -40,6 +40,7 @@ const Layout = (props) => {
                 href="/favicon-16x16.png"
               />
               <link rel="manifest" href="/site.webmanifest" />
+              <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet"></link>
               <meta name="msapplication-config" content="/browserconfig.xml" />
               <meta name="msapplication-TileColor" content="#ffffff" />
               <meta name="theme-color" content="#ffffff" />

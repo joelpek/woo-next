@@ -3479,8 +3479,8 @@ var ObservableQuery = (function (_super) {
         var queryStoreValue = this.queryManager.queryStore.get(this.queryId);
         var result;
         var fetchPolicy = this.options.fetchPolicy;
-        var isNetworkFetchPolicy = fetchPolicy === 'network-only' ||
-            fetchPolicy === 'no-cache';
+        // var isNetworkFetchPolicy = fetchPolicy === 'network-only' ||
+        //     fetchPolicy === 'no-cache';
         if (queryStoreValue) {
             var networkStatus = queryStoreValue.networkStatus;
             if (hasError(queryStoreValue, this.options.errorPolicy)) {
@@ -3553,10 +3553,10 @@ var ObservableQuery = (function (_super) {
         if (fetchPolicy === 'cache-only') {
             return Promise.reject( false ? undefined : new ts_invariant__WEBPACK_IMPORTED_MODULE_4__["InvariantError"]('cache-only fetchPolicy option should not be used together with query refetch.'));
         }
-        if (fetchPolicy !== 'no-cache' &&
-            fetchPolicy !== 'cache-and-network') {
-            fetchPolicy = 'network-only';
-        }
+        // if (fetchPolicy !== 'no-cache' &&
+        //     fetchPolicy !== 'cache-and-network') {
+        //     fetchPolicy = 'network-only';
+        // }
         if (!Object(apollo_utilities__WEBPACK_IMPORTED_MODULE_1__["isEqual"])(this.variables, variables)) {
             this.variables = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__assign"])({}, this.variables, variables);
         }
@@ -5062,7 +5062,7 @@ var QueryManager = (function () {
                 this.pollingInfoByQueryId.set(queryId, (info = {}));
             }
             info.interval = pollInterval;
-            info.options = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__assign"])({}, options, { fetchPolicy: 'network-only' });
+            info.options = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__assign"])({}, options, { fetchPolicy: 'cache-first' });
             var maybeFetch_1 = function () {
                 var info = _this.pollingInfoByQueryId.get(queryId);
                 if (info) {

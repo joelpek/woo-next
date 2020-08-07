@@ -48,7 +48,9 @@ const CartItemsContainer = () => {
     onError: (error) => {
       if (error) {
         console.log(error);
-        // setRequestError(error.graphQLErrors[0].message);
+        if (error.graphQLErrors[0]) {
+          setRequestError(error.graphQLErrors[0].message);
+        }
       }
     },
   });
@@ -64,7 +66,9 @@ const CartItemsContainer = () => {
     onError: (error) => {
       if (error) {
         console.log(error);
-        // setRequestError(error.graphQLErrors[0].message);
+        if (error.graphQLErrors[0]) {
+          setRequestError(error.graphQLErrors[0].message);
+        }
       }
     },
   });
@@ -160,8 +164,8 @@ const CartItemsContainer = () => {
               onClick={(event) => handleClearCart(event)}
               disabled={clearCartProcessing}
             >
-              <span className="woo-next-cart">Clear Cart</span>
-              <i className="fa fa-arrow-alt-right" />
+              <span className="woo-next-cart">Clear Cart &nbsp;</span>
+              <i className="fas fa-trash"></i>
             </button>
             {clearCartProcessing ? <p>Clearing...</p> : ""}
           </div>
@@ -205,7 +209,7 @@ const CartItemsContainer = () => {
               <Link href="/checkout">
                 <button className="btn btn-secondary woo-next-large-black-btn">
                   <span className="woo-next-cart-checkout-txt">
-                    Proceed to Checkout
+                    Proceed to Checkout &nbsp;
                   </span>
                   <i className="fas fa-long-arrow-alt-right" />
                 </button>
@@ -219,7 +223,7 @@ const CartItemsContainer = () => {
           <Link href="/">
             <button className="btn btn-secondary woo-next-large-black-btn">
               <span className="woo-next-cart-checkout-txt">
-                Add New Products
+                Add New Products &nbsp;
               </span>
               <i className="fas fa-long-arrow-alt-right" />
             </button>

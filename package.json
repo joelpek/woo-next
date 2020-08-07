@@ -3,11 +3,11 @@
   "version": "1.0.0",
   "description": "Woocommerce Front end app with Nextjs",
   "scripts": {
-    "dev": "next dev --port=3005",
-    "build": "npm run build-fragment && next build",
+    "dev": "npx next dev --port=3005",
+    "build": "npm run build-fragment && npx next build",
     "build-fragment": "node schemaQuery.js",
-    "start": "next start",
-    "deploy": "npm run build && now"
+    "start": "npx next start",
+    "deploy": "npm run build && npx now"
   },
   "author": "Joel Pekari, Imran Sayed",
   "license": "ISC",
@@ -17,16 +17,22 @@
   },
   "dependencies": {
     "@apollo/react-hooks": "^4.0.0",
+    "@apollo/react-ssr": "^4.0.0",
     "@zeit/next-css": "^1.0.1",
     "apollo-boost": "^0.4.9",
     "apollo-cache-inmemory": "^1.6.3",
     "apollo-link": "^1.2.13",
+    "apollo-link-context": "^1.0.20",
     "apollo-link-error": "^1.1.13",
     "apollo-link-http": "^1.5.15",
+    "apollo-link-refresh-token": "^0.1.2",
+    "apollo-link-token-refresh": "^0.3.2",
+    "cookie": "^0.4.1",
     "express": "^4.17.1",
     "graphql": "^14.4.2",
     "graphql-tag": "^2.10.1",
     "isomorphic-unfetch": "^3.0.0",
+    "jwt-decode": "^2.2.0",
     "next": "^9.3.2",
     "nodemon": "^1.19.1",
     "react": "^16.8.6",
@@ -34,5 +40,9 @@
     "uuid": "^7.0.2",
     "validator": "^13.0.0",
     "woocommerce-api": "^1.4.2"
+  },
+  "devDependencies": {
+    "@types/react": "^16.9.44",
+    "typescript": "^3.9.7"
   }
 }

@@ -1,0 +1,400 @@
+2020-08-07T12:10:11: 
+2020-08-07T12:10:11: > woo-next@1.0.0 build /home/joel/woo-next
+2020-08-07T12:10:11: > npm run build-fragment && npx next build
+2020-08-07T12:10:11: 
+2020-08-07T12:10:12: 
+2020-08-07T12:10:12: > woo-next@1.0.0 build-fragment /home/joel/woo-next
+2020-08-07T12:10:12: > node schemaQuery.js
+2020-08-07T12:10:12: 
+2020-08-07T12:10:14: Fragment types successfully extracted!
+2020-08-07T12:10:16: Creating an optimized production build...
+2020-08-07T12:13:25: 
+2020-08-07T12:13:25: > woo-next@1.0.0 build /home/joel/woo-next
+2020-08-07T12:13:25: > npm run build-fragment && npx next build
+2020-08-07T12:13:25: 
+2020-08-07T12:13:26: 
+2020-08-07T12:13:26: > woo-next@1.0.0 build-fragment /home/joel/woo-next
+2020-08-07T12:13:26: > node schemaQuery.js
+2020-08-07T12:13:26: 
+2020-08-07T12:13:26: Fragment types successfully extracted!
+2020-08-07T12:13:29: Creating an optimized production build...
+2020-08-07T12:15:03: 
+2020-08-07T12:15:03: > woo-next@1.0.0 build /home/joel/woo-next
+2020-08-07T12:15:03: > npm run build-fragment && npx next build
+2020-08-07T12:15:03: 
+2020-08-07T12:15:04: 
+2020-08-07T12:15:04: > woo-next@1.0.0 build-fragment /home/joel/woo-next
+2020-08-07T12:15:04: > node schemaQuery.js
+2020-08-07T12:15:04: 
+2020-08-07T12:15:04: Fragment types successfully extracted!
+2020-08-07T12:15:08: Creating an optimized production build...
+2020-08-07T12:18:18: 
+2020-08-07T12:18:18: > woo-next@1.0.0 build /home/joel/woo-next
+2020-08-07T12:18:18: > npm run build-fragment && npx next build
+2020-08-07T12:18:18: 
+2020-08-07T12:18:19: 
+2020-08-07T12:18:19: > woo-next@1.0.0 build-fragment /home/joel/woo-next
+2020-08-07T12:18:19: > node schemaQuery.js
+2020-08-07T12:18:19: 
+2020-08-07T12:18:19: Fragment types successfully extracted!
+2020-08-07T12:18:23: Creating an optimized production build...
+2020-08-07T12:19:49: 
+2020-08-07T12:19:49: > woo-next@1.0.0 build /home/joel/woo-next
+2020-08-07T12:19:49: > npm run build-fragment && npx next build
+2020-08-07T12:19:49: 
+2020-08-07T12:19:50: 
+2020-08-07T12:19:50: > woo-next@1.0.0 build-fragment /home/joel/woo-next
+2020-08-07T12:19:50: > node schemaQuery.js
+2020-08-07T12:19:50: 
+2020-08-07T12:19:50: Fragment types successfully extracted!
+2020-08-07T12:19:54: Creating an optimized production build...
+2020-08-07T12:22:44: 
+2020-08-07T12:22:44: > woo-next@1.0.0 build /home/joel/woo-next
+2020-08-07T12:22:44: > npm run build-fragment && npx next build
+2020-08-07T12:22:44: 
+2020-08-07T12:22:47: 
+2020-08-07T12:22:47: > woo-next@1.0.0 build-fragment /home/joel/woo-next
+2020-08-07T12:22:47: > node schemaQuery.js
+2020-08-07T12:22:47: 
+2020-08-07T12:22:48: Fragment types successfully extracted!
+2020-08-07T12:23:09: Creating an optimized production build...
+2020-08-07T12:24:46: 
+2020-08-07T12:24:46: > woo-next@1.0.0 build /home/joel/woo-next
+2020-08-07T12:24:46: > npm run build-fragment && npx next build
+2020-08-07T12:24:46: 
+2020-08-07T12:24:47: 
+2020-08-07T12:24:47: > woo-next@1.0.0 build-fragment /home/joel/woo-next
+2020-08-07T12:24:47: > node schemaQuery.js
+2020-08-07T12:24:47: 
+2020-08-07T12:24:48: Fragment types successfully extracted!
+2020-08-07T12:24:52: Creating an optimized production build...
+2020-08-07T12:26:55: 
+2020-08-07T12:26:55: > woo-next@1.0.0 build /home/joel/woo-next
+2020-08-07T12:26:55: > npm run build-fragment && npx next build
+2020-08-07T12:26:55: 
+2020-08-07T12:26:57: 
+2020-08-07T12:26:57: > woo-next@1.0.0 build-fragment /home/joel/woo-next
+2020-08-07T12:26:57: > node schemaQuery.js
+2020-08-07T12:26:57: 
+2020-08-07T12:26:58: Fragment types successfully extracted!
+2020-08-07T12:27:33: Creating an optimized production build...
+2020-08-07T12:28:28: 
+2020-08-07T12:28:28: > woo-next@1.0.0 build /home/joel/woo-next
+2020-08-07T12:28:28: > npm run build-fragment && npx next build
+2020-08-07T12:28:28: 
+2020-08-07T12:28:31: 
+2020-08-07T12:28:31: > woo-next@1.0.0 build-fragment /home/joel/woo-next
+2020-08-07T12:28:31: > node schemaQuery.js
+2020-08-07T12:28:31: 
+2020-08-07T12:28:32: Fragment types successfully extracted!
+2020-08-07T12:28:57: Creating an optimized production build...
+2020-08-07T12:29:11: 
+2020-08-07T12:29:11: > woo-next@1.0.0 build /home/joel/woo-next
+2020-08-07T12:29:11: > npm run build-fragment && npx next build
+2020-08-07T12:29:11: 
+2020-08-07T12:29:13: 
+2020-08-07T12:29:13: > woo-next@1.0.0 build-fragment /home/joel/woo-next
+2020-08-07T12:29:13: > node schemaQuery.js
+2020-08-07T12:29:13: 
+2020-08-07T12:29:14: Fragment types successfully extracted!
+2020-08-07T12:29:56: Creating an optimized production build...
+2020-08-07T12:31:37: 
+2020-08-07T12:31:37: > woo-next@1.0.0 build /home/joel/woo-next
+2020-08-07T12:31:37: > npm run build-fragment && npx next build
+2020-08-07T12:31:37: 
+2020-08-07T12:31:39: 
+2020-08-07T12:31:39: > woo-next@1.0.0 build-fragment /home/joel/woo-next
+2020-08-07T12:31:39: > node schemaQuery.js
+2020-08-07T12:31:39: 
+2020-08-07T12:31:40: Fragment types successfully extracted!
+2020-08-07T12:32:04: Creating an optimized production build...
+2020-08-07T12:33:38: 
+2020-08-07T12:33:38: > woo-next@1.0.0 build /home/joel/woo-next
+2020-08-07T12:33:38: > npm run build-fragment && npx next build
+2020-08-07T12:33:38: 
+2020-08-07T12:33:40: 
+2020-08-07T12:33:40: > woo-next@1.0.0 build-fragment /home/joel/woo-next
+2020-08-07T12:33:40: > node schemaQuery.js
+2020-08-07T12:33:40: 
+2020-08-07T12:33:41: Fragment types successfully extracted!
+2020-08-07T12:34:10: Creating an optimized production build...
+2020-08-07T12:34:23: 
+2020-08-07T12:34:23: > woo-next@1.0.0 build /home/joel/woo-next
+2020-08-07T12:34:23: > npm run build-fragment && npx next build
+2020-08-07T12:34:23: 
+2020-08-07T12:34:25: 
+2020-08-07T12:34:25: > woo-next@1.0.0 build-fragment /home/joel/woo-next
+2020-08-07T12:34:25: > node schemaQuery.js
+2020-08-07T12:34:25: 
+2020-08-07T12:34:27: Fragment types successfully extracted!
+2020-08-07T12:35:01: Creating an optimized production build...
+2020-08-07T12:37:38: 
+2020-08-07T12:37:38: > woo-next@1.0.0 build /home/joel/woo-next
+2020-08-07T12:37:38: > npm run build-fragment && npx next build
+2020-08-07T12:37:38: 
+2020-08-07T12:37:40: 
+2020-08-07T12:37:40: > woo-next@1.0.0 build-fragment /home/joel/woo-next
+2020-08-07T12:37:40: > node schemaQuery.js
+2020-08-07T12:37:40: 
+2020-08-07T12:37:41: Fragment types successfully extracted!
+2020-08-07T12:38:00: Creating an optimized production build...
+2020-08-07T12:39:36: 
+2020-08-07T12:39:36: > woo-next@1.0.0 build /home/joel/woo-next
+2020-08-07T12:39:36: > npm run build-fragment && npx next build
+2020-08-07T12:39:36: 
+2020-08-07T12:39:38: 
+2020-08-07T12:39:38: > woo-next@1.0.0 build-fragment /home/joel/woo-next
+2020-08-07T12:39:38: > node schemaQuery.js
+2020-08-07T12:39:38: 
+2020-08-07T12:39:39: Fragment types successfully extracted!
+2020-08-07T12:40:11: Creating an optimized production build...
+2020-08-07T12:40:55: 
+2020-08-07T12:40:55: > woo-next@1.0.0 build /home/joel/woo-next
+2020-08-07T12:40:55: > npm run build-fragment && npx next build
+2020-08-07T12:40:55: 
+2020-08-07T12:40:57: 
+2020-08-07T12:40:57: > woo-next@1.0.0 build-fragment /home/joel/woo-next
+2020-08-07T12:40:57: > node schemaQuery.js
+2020-08-07T12:40:57: 
+2020-08-07T12:40:58: Fragment types successfully extracted!
+2020-08-07T12:41:13: Creating an optimized production build...
+2020-08-07T12:42:47: 
+2020-08-07T12:42:47: > woo-next@1.0.0 build /home/joel/woo-next
+2020-08-07T12:42:47: > npm run build-fragment && npx next build
+2020-08-07T12:42:47: 
+2020-08-07T12:42:48: 
+2020-08-07T12:42:48: > woo-next@1.0.0 build-fragment /home/joel/woo-next
+2020-08-07T12:42:48: > node schemaQuery.js
+2020-08-07T12:42:48: 
+2020-08-07T12:42:48: Fragment types successfully extracted!
+2020-08-07T12:42:52: Creating an optimized production build...
+2020-08-07T12:45:56: 
+2020-08-07T12:45:56: > woo-next@1.0.0 build /home/joel/woo-next
+2020-08-07T12:45:56: > npm run build-fragment && npx next build
+2020-08-07T12:45:56: 
+2020-08-07T12:45:57: 
+2020-08-07T12:45:57: > woo-next@1.0.0 build-fragment /home/joel/woo-next
+2020-08-07T12:45:57: > node schemaQuery.js
+2020-08-07T12:45:57: 
+2020-08-07T12:45:58: Fragment types successfully extracted!
+2020-08-07T12:46:01: Creating an optimized production build...
+2020-08-07T12:46:49: 
+2020-08-07T12:46:49: > woo-next@1.0.0 build /home/joel/woo-next
+2020-08-07T12:46:49: > npm run build-fragment && npx next build
+2020-08-07T12:46:49: 
+2020-08-07T12:46:50: 
+2020-08-07T12:46:50: > woo-next@1.0.0 build-fragment /home/joel/woo-next
+2020-08-07T12:46:50: > node schemaQuery.js
+2020-08-07T12:46:50: 
+2020-08-07T12:46:51: Fragment types successfully extracted!
+2020-08-07T12:46:54: Creating an optimized production build...
+2020-08-07T12:48:28: 
+2020-08-07T12:48:28: > woo-next@1.0.0 build /home/joel/woo-next
+2020-08-07T12:48:28: > npm run build-fragment && npx next build
+2020-08-07T12:48:28: 
+2020-08-07T12:48:30: 
+2020-08-07T12:48:30: > woo-next@1.0.0 build-fragment /home/joel/woo-next
+2020-08-07T12:48:30: > node schemaQuery.js
+2020-08-07T12:48:30: 
+2020-08-07T12:48:30: Fragment types successfully extracted!
+2020-08-07T12:48:34: Creating an optimized production build...
+2020-08-07T12:49:59: 
+2020-08-07T12:49:59: > woo-next@1.0.0 build /home/joel/woo-next
+2020-08-07T12:49:59: > npm run build-fragment && npx next build
+2020-08-07T12:49:59: 
+2020-08-07T12:50:00: 
+2020-08-07T12:50:00: > woo-next@1.0.0 build-fragment /home/joel/woo-next
+2020-08-07T12:50:00: > node schemaQuery.js
+2020-08-07T12:50:00: 
+2020-08-07T12:50:00: Fragment types successfully extracted!
+2020-08-07T12:50:05: Creating an optimized production build...
+2020-08-07T12:52:17: 
+2020-08-07T12:52:17: > woo-next@1.0.0 build /home/joel/woo-next
+2020-08-07T12:52:17: > npm run build-fragment && npx next build
+2020-08-07T12:52:17: 
+2020-08-07T12:52:19: 
+2020-08-07T12:52:19: > woo-next@1.0.0 build-fragment /home/joel/woo-next
+2020-08-07T12:52:19: > node schemaQuery.js
+2020-08-07T12:52:19: 
+2020-08-07T12:52:19: Fragment types successfully extracted!
+2020-08-07T12:52:37: Creating an optimized production build...
+2020-08-07T12:54:38: 
+2020-08-07T12:54:38: > woo-next@1.0.0 build /home/joel/woo-next
+2020-08-07T12:54:38: > npm run build-fragment && npx next build
+2020-08-07T12:54:38: 
+2020-08-07T12:54:40: 
+2020-08-07T12:54:40: > woo-next@1.0.0 build-fragment /home/joel/woo-next
+2020-08-07T12:54:40: > node schemaQuery.js
+2020-08-07T12:54:40: 
+2020-08-07T12:54:41: Fragment types successfully extracted!
+2020-08-07T12:55:00: Creating an optimized production build...
+2020-08-07T12:56:22: 
+2020-08-07T12:56:22: > woo-next@1.0.0 build /home/joel/woo-next
+2020-08-07T12:56:22: > npm run build-fragment && npx next build
+2020-08-07T12:56:22: 
+2020-08-07T12:56:23: 
+2020-08-07T12:56:23: > woo-next@1.0.0 build-fragment /home/joel/woo-next
+2020-08-07T12:56:23: > node schemaQuery.js
+2020-08-07T12:56:23: 
+2020-08-07T12:56:24: Fragment types successfully extracted!
+2020-08-07T12:56:27: Creating an optimized production build...
+2020-08-07T12:58:02: 
+2020-08-07T12:58:02: > woo-next@1.0.0 build /home/joel/woo-next
+2020-08-07T12:58:02: > npm run build-fragment && npx next build
+2020-08-07T12:58:02: 
+2020-08-07T12:58:04: 
+2020-08-07T12:58:04: > woo-next@1.0.0 build-fragment /home/joel/woo-next
+2020-08-07T12:58:04: > node schemaQuery.js
+2020-08-07T12:58:04: 
+2020-08-07T12:58:05: Fragment types successfully extracted!
+2020-08-07T12:58:23: Creating an optimized production build...
+2020-08-07T12:59:41: 
+2020-08-07T12:59:41: > woo-next@1.0.0 build /home/joel/woo-next
+2020-08-07T12:59:41: > npm run build-fragment && npx next build
+2020-08-07T12:59:41: 
+2020-08-07T12:59:42: 
+2020-08-07T12:59:42: > woo-next@1.0.0 build-fragment /home/joel/woo-next
+2020-08-07T12:59:42: > node schemaQuery.js
+2020-08-07T12:59:42: 
+2020-08-07T12:59:43: Fragment types successfully extracted!
+2020-08-07T13:00:17: Creating an optimized production build...
+2020-08-07T13:00:32: 
+2020-08-07T13:00:32: > woo-next@1.0.0 build /home/joel/woo-next
+2020-08-07T13:00:32: > npm run build-fragment && npx next build
+2020-08-07T13:00:32: 
+2020-08-07T13:00:34: 
+2020-08-07T13:00:34: > woo-next@1.0.0 build-fragment /home/joel/woo-next
+2020-08-07T13:00:34: > node schemaQuery.js
+2020-08-07T13:00:34: 
+2020-08-07T13:00:35: Fragment types successfully extracted!
+2020-08-07T13:01:16: Creating an optimized production build...
+2020-08-07T13:02:47: 
+2020-08-07T13:02:47: > woo-next@1.0.0 build /home/joel/woo-next
+2020-08-07T13:02:47: > npm run build-fragment && npx next build
+2020-08-07T13:02:47: 
+2020-08-07T13:02:49: 
+2020-08-07T13:02:49: > woo-next@1.0.0 build-fragment /home/joel/woo-next
+2020-08-07T13:02:49: > node schemaQuery.js
+2020-08-07T13:02:49: 
+2020-08-07T13:02:50: Fragment types successfully extracted!
+2020-08-07T13:03:17: Creating an optimized production build...
+2020-08-07T13:05:25: 
+2020-08-07T13:05:25: > woo-next@1.0.0 build /home/joel/woo-next
+2020-08-07T13:05:25: > npm run build-fragment && npx next build
+2020-08-07T13:05:25: 
+2020-08-07T13:05:27: 
+2020-08-07T13:05:27: > woo-next@1.0.0 build-fragment /home/joel/woo-next
+2020-08-07T13:05:27: > node schemaQuery.js
+2020-08-07T13:05:27: 
+2020-08-07T13:05:28: Fragment types successfully extracted!
+2020-08-07T13:05:43: Creating an optimized production build...
+2020-08-07T13:05:57: 
+2020-08-07T13:05:57: > woo-next@1.0.0 build /home/joel/woo-next
+2020-08-07T13:05:57: > npm run build-fragment && npx next build
+2020-08-07T13:05:57: 
+2020-08-07T13:05:59: 
+2020-08-07T13:05:59: > woo-next@1.0.0 build-fragment /home/joel/woo-next
+2020-08-07T13:05:59: > node schemaQuery.js
+2020-08-07T13:05:59: 
+2020-08-07T13:06:00: Fragment types successfully extracted!
+2020-08-07T13:06:30: Creating an optimized production build...
+2020-08-07T13:08:08: 
+2020-08-07T13:08:08: > woo-next@1.0.0 build /home/joel/woo-next
+2020-08-07T13:08:08: > npm run build-fragment && npx next build
+2020-08-07T13:08:08: 
+2020-08-07T13:08:10: 
+2020-08-07T13:08:10: > woo-next@1.0.0 build-fragment /home/joel/woo-next
+2020-08-07T13:08:10: > node schemaQuery.js
+2020-08-07T13:08:10: 
+2020-08-07T13:08:11: Fragment types successfully extracted!
+2020-08-07T13:08:18: Creating an optimized production build...
+2020-08-07T13:12:09: 
+2020-08-07T13:12:09: > woo-next@1.0.0 build /home/joel/woo-next
+2020-08-07T13:12:09: > npm run build-fragment && npx next build
+2020-08-07T13:12:09: 
+2020-08-07T13:12:12: 
+2020-08-07T13:12:12: > woo-next@1.0.0 build-fragment /home/joel/woo-next
+2020-08-07T13:12:12: > node schemaQuery.js
+2020-08-07T13:12:12: 
+2020-08-07T13:12:13: Fragment types successfully extracted!
+2020-08-07T13:12:37: Creating an optimized production build...
+2020-08-07T13:12:52: 
+2020-08-07T13:12:52: > woo-next@1.0.0 build /home/joel/woo-next
+2020-08-07T13:12:52: > npm run build-fragment && npx next build
+2020-08-07T13:12:52: 
+2020-08-07T13:12:54: 
+2020-08-07T13:12:54: > woo-next@1.0.0 build-fragment /home/joel/woo-next
+2020-08-07T13:12:54: > node schemaQuery.js
+2020-08-07T13:12:54: 
+2020-08-07T13:12:55: Fragment types successfully extracted!
+2020-08-07T13:13:48: Creating an optimized production build...
+2020-08-07T13:15:56: 
+2020-08-07T13:15:56: > woo-next@1.0.0 build /home/joel/woo-next
+2020-08-07T13:15:56: > npm run build-fragment && npx next build
+2020-08-07T13:15:56: 
+2020-08-07T13:15:58: 
+2020-08-07T13:15:58: > woo-next@1.0.0 build-fragment /home/joel/woo-next
+2020-08-07T13:15:58: > node schemaQuery.js
+2020-08-07T13:15:58: 
+2020-08-07T13:15:59: Fragment types successfully extracted!
+2020-08-07T13:16:19: Creating an optimized production build...
+2020-08-07T13:17:49: 
+2020-08-07T13:17:49: > woo-next@1.0.0 build /home/joel/woo-next
+2020-08-07T13:17:49: > npm run build-fragment && npx next build
+2020-08-07T13:17:49: 
+2020-08-07T13:17:51: 
+2020-08-07T13:17:51: > woo-next@1.0.0 build-fragment /home/joel/woo-next
+2020-08-07T13:17:51: > node schemaQuery.js
+2020-08-07T13:17:51: 
+2020-08-07T13:17:52: Fragment types successfully extracted!
+2020-08-07T13:18:32: Creating an optimized production build...
+2020-08-07T13:18:48: 
+2020-08-07T13:18:48: > woo-next@1.0.0 build /home/joel/woo-next
+2020-08-07T13:18:48: > npm run build-fragment && npx next build
+2020-08-07T13:18:48: 
+2020-08-07T13:18:50: 
+2020-08-07T13:18:50: > woo-next@1.0.0 build-fragment /home/joel/woo-next
+2020-08-07T13:18:50: > node schemaQuery.js
+2020-08-07T13:18:50: 
+2020-08-07T13:18:52: Fragment types successfully extracted!
+2020-08-07T13:20:02: Creating an optimized production build...
+2020-08-07T13:20:51: 
+2020-08-07T13:20:51: > woo-next@1.0.0 build /home/joel/woo-next
+2020-08-07T13:20:51: > npm run build-fragment && npx next build
+2020-08-07T13:20:51: 
+2020-08-07T13:20:52: 
+2020-08-07T13:20:52: > woo-next@1.0.0 build-fragment /home/joel/woo-next
+2020-08-07T13:20:52: > node schemaQuery.js
+2020-08-07T13:20:52: 
+2020-08-07T13:20:53: Fragment types successfully extracted!
+2020-08-07T13:20:59: Creating an optimized production build...
+2020-08-07T13:23:13: 
+2020-08-07T13:23:13: > woo-next@1.0.0 build /home/joel/woo-next
+2020-08-07T13:23:13: > npm run build-fragment && npx next build
+2020-08-07T13:23:13: 
+2020-08-07T13:23:14: 
+2020-08-07T13:23:14: > woo-next@1.0.0 build-fragment /home/joel/woo-next
+2020-08-07T13:23:14: > node schemaQuery.js
+2020-08-07T13:23:14: 
+2020-08-07T13:23:14: Fragment types successfully extracted!
+2020-08-07T13:23:18: Creating an optimized production build...
+2020-08-07T13:26:12: 
+2020-08-07T13:26:12: > woo-next@1.0.0 build /home/joel/woo-next
+2020-08-07T13:26:12: > npm run build-fragment && npx next build
+2020-08-07T13:26:12: 
+2020-08-07T13:26:14: 
+2020-08-07T13:26:14: > woo-next@1.0.0 build-fragment /home/joel/woo-next
+2020-08-07T13:26:14: > node schemaQuery.js
+2020-08-07T13:26:14: 
+2020-08-07T13:26:15: Fragment types successfully extracted!
+2020-08-07T13:26:39: Creating an optimized production build...
+2020-08-07T13:27:50: 
+2020-08-07T13:27:50: > woo-next@1.0.0 build /home/joel/woo-next
+2020-08-07T13:27:50: > npm run build-fragment && npx next build
+2020-08-07T13:27:50: 
+2020-08-07T13:27:52: 
+2020-08-07T13:27:52: > woo-next@1.0.0 build-fragment /home/joel/woo-next
+2020-08-07T13:27:52: > node schemaQuery.js
+2020-08-07T13:27:52: 
+2020-08-07T13:27:53: Fragment types successfully extracted!
+2020-08-07T13:28:31: Creating an optimized production build...
