@@ -1,13 +1,13 @@
 import Link from "next/link";
 
 const CheckoutCartItem = ({ item }) => {
-  //   console.log(item);
+  //   /*console.log((item);*/
   return (
     <tr className="woo-next-cart-item" key={item.productId}>
       <td className="woo-next-cart-element">
         <Link
           as={`/product/${item.slug}-${item.productId}`}
-          href={`/product?slug=${item.slug}-${item.productId}`}
+          href={`/product/?slug=${item.slug}-${item.productId}`}
         >
           <a className="coCartItemImgLink">
             <img
@@ -22,7 +22,7 @@ const CheckoutCartItem = ({ item }) => {
       <td className="woo-next-cart-element">
         <Link
           as={`/product/${item.slug}-${item.productId}`}
-          href={`/product?slug=${item.slug}-${item.productId}`}
+          href={`/product/?slug=${item.slug}-${item.productId}`}
         >
           <a>{item.name}</a>
         </Link>

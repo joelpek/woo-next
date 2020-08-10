@@ -11,11 +11,11 @@
   "routes": [
     {
       "src": "/product/(?<slug>[^/]+)$",
-      "dest": "/product?slug=$slug"
+      "dest": "/product/?slug=$slug"
     },
     {
       "src": "/category/(?<slug>[^/]+)$",
-      "dest": "/category?slug=$slug"
+      "dest": "/category/?slug=$slug"
     }
   ]
 }

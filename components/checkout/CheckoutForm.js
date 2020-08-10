@@ -69,7 +69,7 @@ const CheckoutForm = () => {
       // Update cart in the localStorage.
       const updatedCart = getFormattedCart(data);
       localStorage.setItem("woo-next-cart", JSON.stringify(updatedCart));
-      //   console.log(updatedCart);
+      //   /*console.log((updatedCart);*/
       // Update cart data in React Context.
       setCart(updatedCart);
     },
@@ -108,7 +108,7 @@ const CheckoutForm = () => {
       },
     },
     onCompleted: () => {
-      console.log("shippingResponse", data);
+      // console.log("shippingResponse", data);
       if (data.cart.availableShippingMethods.length > 0) {
         let availableShippingMethods = data.cart.availableShippingMethods[0].rates.map(
           (x) => x.id
@@ -121,7 +121,7 @@ const CheckoutForm = () => {
     },
     onError: (error) => {
       if (error) {
-        console.log(error);
+        /*console.log((error);*/
         debugger;
       }
     },
@@ -154,18 +154,18 @@ const CheckoutForm = () => {
    * @return {void}
    */
   const handleOnChange = (event) => {
-    // console.log(event);
+    // /*console.log((event);*/
     if ("createAccount" === event.target.name) {
       const newState = { ...input, [event.target.name]: !input.createAccount };
       setInput(newState);
     } else if ("shippingMethods" === event.target.name) {
-      console.log("shippingMethods", input.shippingMethod);
+      // console.log("shippingMethods", input.shippingMethod);
       const newState = { ...input, [event.target.name]: event.target.value };
       setInput(newState);
-      console.log("STATE shippingMethods", newState.shippingMethods);
+      // console.log("STATE shippingMethods", newState.shippingMethods);
       shipping();
     } else {
-      console.log(event.target.name, event.target.value);
+      // console.log(event.target.name, event.target.value);
       const newState = { ...input, [event.target.name]: event.target.value };
       setInput(newState);
     }
@@ -175,7 +175,7 @@ const CheckoutForm = () => {
     if (null !== orderData) {
       // Call the checkout mutation when the value for orderData changes/updates.
       checkout();
-      //   console.log(checkoutResponse);
+      //   /*console.log((checkoutResponse);*/
     }
   }, [orderData]);
 

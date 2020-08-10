@@ -2,7 +2,7 @@ const Footer = () => (
   <footer className="footer">
     <div className="footer-text">
       <p>© ePro Consulting 2020</p>
-      <p className="text-gray">Made with 💙 and ☕️ in Finland.</p>
+      <p className="text-gray">👷 Under construction! Made with 💙 and ☕️ in Finland.</p>
       <span className="text-gray"></span>
     </div>
     <ul className="footer-links1">

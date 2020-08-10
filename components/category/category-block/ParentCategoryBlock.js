@@ -2,7 +2,7 @@ import Link from "next/link";
 
 const ParentCategoryBlock = (props) => {
   const { category } = props;
-//   console.log(category);
+//   /*console.log((category);*/
 
   return (
     <div className="col-lg-6 col-md-12 col-sm-12 pcb">
@@ -11,7 +11,7 @@ const ParentCategoryBlock = (props) => {
       ) : (
         <Link
           as={`/category/${category.slug}-${category.id}`}
-          href={`/category?slug=${category.slug}-${category.id}`}
+          href={`/category/?slug=${category.slug}-${category.id}`}
         >
           <a>
             <h3 className="card-header-category text-center">{category.name}</h3>

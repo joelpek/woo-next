@@ -86,7 +86,7 @@ const AddToCart = (props) => {
       // If error.
       if (addToCartError) {
         setRequestError(addToCartError.graphQLErrors[0].message);
-        console.log(addToCartError);
+        /*console.log((addToCartError);*/
       }
 
       // On Success:
@@ -98,7 +98,7 @@ const AddToCart = (props) => {
     },
     onError: (error) => {
       if (error) {
-        console.log(error);
+        /*console.log((error);*/
         setRequestError(error.graphQLErrors[0].message);
       }
     },
@@ -108,7 +108,7 @@ const AddToCart = (props) => {
     // handleAddToCartLocalStorage();
     setRequestError(null);
     addToCart();
-    console.log("added to cart");
+    // console.log("added to cart");
   };
 
   return (

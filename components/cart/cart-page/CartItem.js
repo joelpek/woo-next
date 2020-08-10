@@ -49,7 +49,7 @@ const CartItem = ({
       }
     }
   };
-  //   console.log(item);
+  //   /*console.log((item);*/
   return (
     <tr className="woo-next-cart-item" key={item.productId}>
       <th className="woo-next-cart-element woo-next-cart-el-close cart-rmv">
@@ -66,7 +66,7 @@ const CartItem = ({
       <td className="woo-next-cart-element cart-img">
         <Link
           as={`/product/${item.slug}-${item.productId}`}
-          href={`/product?slug=${item.slug}-${item.productId}`}
+          href={`/product/?slug=${item.slug}-${item.productId}`}
         >
           <a className="cartItemImgLink">
             {/* ePro Consulting */}
@@ -82,7 +82,7 @@ const CartItem = ({
       <td className="woo-next-cart-element">
         <Link
           as={`/product/${item.slug}-${item.productId}`}
-          href={`/product?slug=${item.slug}-${item.productId}`}
+          href={`/product/?slug=${item.slug}-${item.productId}`}
         >
           <a>{item.name}</a>
         </Link>

@@ -31,9 +31,9 @@ fetch( `${ wooConfig.graphqlUrl }`, {
 		result.data.__schema.types = filteredData;
 		fs.writeFile( './fragmentTypes.json', JSON.stringify( result.data ), err => {
 			if ( err ) {
-				console.error( 'Error writing fragmentTypes file', err );
+				// console.error( 'Error writing fragmentTypes file', err );
 			} else {
-				console.log( 'Fragment types successfully extracted!' );
+				// console.log( 'Fragment types successfully extracted!' );
 			}
 		} );
 	} );

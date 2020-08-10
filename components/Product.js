@@ -6,7 +6,7 @@ const Product = (props) => {
   //   TODO: add default image url
   const imgSrc = product.image ? product.image.sourceUrl : "";
 
-  console.log("test", product);
+  // console.log("test", product);
 
   return (
     // @TODO Need to handle Group products differently.
@@ -19,7 +19,7 @@ const Product = (props) => {
 
           <Link
             as={`/product/${product.slug}-${product.productId}`}
-            href={`/product?slug=${product.slug}-${product.productId}`}
+            href={`/product/?slug=${product.slug}-${product.productId}`}
           >
             <a>
               <img className="link-image" src={imgSrc} alt="Product image" />
