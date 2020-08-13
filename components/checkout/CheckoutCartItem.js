@@ -9,7 +9,7 @@ const CheckoutCartItem = ({ item }) => {
           as={`/product/${item.slug}-${item.productId}`}
           href={`/product/?slug=${item.slug}-${item.productId}`}
         >
-          <a className="coCartItemImgLink">
+          <a aria-hidden className="coCartItemImgLink">
             <img
               width="64"
               src={item.image.sourceUrl}

@@ -313,8 +313,8 @@ export const createCheckoutData = (order) => {
     shipToDifferentAddress: false,
     paymentMethod: order.paymentMethod,
     isPaid: false,
-    transactionId: "hjkhjkhsdsdiui",
-    shippingMethods: order.shippingMethods,
+    transactionId: v4(),
+    shippingMethod: order.shippingMethod,
   };
 
   //   MODEL FROM WP-GRAPQHL-WOOCOMMERCE

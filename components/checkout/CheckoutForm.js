@@ -14,50 +14,32 @@ import GET_CART from "../../queries/get-cart";
 import CHECKOUT_MUTATION from "../../mutations/checkout";
 import SHIPPING_MUTATION from "../../mutations/update-shipping";
 
-const CheckoutForm = () => {
-    const initialState = {
-      firstName: "",
-      lastName: "",
-      company: "",
-      country: "",
-      address1: "",
-      address2: "",
-      city: "",
-      state: "",
-      postcode: "",
-      phone: "",
-      email: "",
-      createAccount: false,
-      orderNotes: "",
-      paymentMethod: "",
-      shippingMethod: "",
-      errors: null,
-    };
+let availableShippingMethods;
 
-  //   Use this for testing purposes, so you dont have to fill the checkout form over an over again.
-  // const initialState = {
-  //   firstName: "Imran",
-  //   lastName: "Sayed",
-  //   address1: "109 Hills Road Valley",
-  //   address2: "Station Road",
-  //   city: "Pune",
-  //   state: "Maharastra",
-  //   country: "ID",
-  //   postcode: "400298",
-  //   phone: "9959338989",
-  //   email: "imran@gmail.com",
-  //   company: "Tech",
-  //   createAccount: false,
-  //   orderNotes: "",
-  //   paymentMethod: "",
-  //   shippingMethod: "",
-  //   errors: null,
-  // };
+const CheckoutForm = () => {
+  const initialState = {
+    firstName: "",
+    lastName: "",
+    company: "",
+    country: "",
+    address1: "",
+    address2: "",
+    city: "",
+    state: "",
+    postcode: "",
+    phone: "",
+    email: "",
+    createAccount: false,
+    orderNotes: "",
+    paymentMethod: "",
+    shippingMethod: "",
+    errors: null,
+  };
 
   const [cart, setCart] = useContext(AppContext);
   const [input, setInput] = useState(initialState);
   const [orderData, setOrderData] = useState(null);
-  const [shippingMethods, setShippingMethods] = useState([]);
+  const [shippingMethod, setShippingMethod] = useState(null);
   const [requestError, setRequestError] = useState(null);
 
   // Get Cart Data.
@@ -84,22 +66,26 @@ const CheckoutForm = () => {
       input: orderData,
     },
     onCompleted: () => {
-      // console.warn( 'completed CHECKOUT_MUTATION' );
+      console.warn("completed CHECKOUT_MUTATION");
       refetch();
     },
     onError: (error) => {
-      if (error) {
+      // console.log(error);
+      if (error.graphQLErrors) {
         setRequestError(error.graphQLErrors[0].message);
       }
     },
   });
 
-  let shippingMethodsExist = false;
-
-  //   Shipping Mutation.
+  // Shipping Mutation.
   const [
     shipping,
-    { data: shippingResponse, loading: shippingLoading, error: shippingError },
+    {
+      data: shippingResponse,
+      loading: shippingLoading,
+      error: shippingError,
+      refetch: shippingRefetch,
+    },
   ] = useMutation(SHIPPING_MUTATION, {
     variables: {
       input: {
@@ -110,14 +96,14 @@ const CheckoutForm = () => {
     onCompleted: () => {
       // console.log("shippingResponse", data);
       if (data.cart.availableShippingMethods.length > 0) {
-        let availableShippingMethods = data.cart.availableShippingMethods[0].rates.map(
+        availableShippingMethods = data.cart.availableShippingMethods[0].rates.map(
           (x) => x.id
         );
-        setShippingMethods(availableShippingMethods);
-      }else {
-        setShippingMethods([])
+        setShippingMethod(shippingMethod);
+      } else {
+        setShippingMethod(null);
       }
-      // refetch();
+      refetch();
     },
     onError: (error) => {
       if (error) {
@@ -138,10 +124,12 @@ const CheckoutForm = () => {
     event.preventDefault();
     const result = validateAndSanitizeCheckoutForm(input);
     if (!result.isValid) {
+      console.log(result.errors);
       setInput({ ...input, errors: result.errors });
       return;
     }
     const checkOutData = createCheckoutData(input);
+    // console.log(checkOutData);
     setOrderData(checkOutData);
     setRequestError(null);
   };
@@ -154,15 +142,16 @@ const CheckoutForm = () => {
    * @return {void}
    */
   const handleOnChange = (event) => {
-    // /*console.log((event);*/
+    // debugger
     if ("createAccount" === event.target.name) {
+      // console.log("createAccount");
       const newState = { ...input, [event.target.name]: !input.createAccount };
       setInput(newState);
-    } else if ("shippingMethods" === event.target.name) {
-      // console.log("shippingMethods", input.shippingMethod);
+    } else if ("shippingMethod" === event.target.name) {
+      // console.log("shippingMethod", input.shippingMethod);
       const newState = { ...input, [event.target.name]: event.target.value };
       setInput(newState);
-      // console.log("STATE shippingMethods", newState.shippingMethods);
+      // console.log("STATE shippingMethod", newState.shippingMethod);
       shipping();
     } else {
       // console.log(event.target.name, event.target.value);
@@ -182,6 +171,7 @@ const CheckoutForm = () => {
   // on component mount: check if shipping available and display options
   useEffect(() => {
     shipping();
+    console.log(availableShippingMethods);
   }, []);
 
   return (
@@ -195,16 +185,16 @@ const CheckoutForm = () => {
               <Billing input={input} handleOnChange={handleOnChange} />
             </div>
             {/* Order & Payments*/}
-            <div className="col-lg-6 col-md-12">
+            <div id="yourorder" className="col-lg-6 col-md-12">
               {/*	Order*/}
               <h2 className="mb-4">Your Order</h2>
               <YourOrder cart={cart} />
               {/*Shipping*/}
-              {shippingMethods.length > 0 && (
-                <div className="shippingMethods">
+              {availableShippingMethods && (
+                <div className="shippingMethod">
                   <h2 className="mb-4">Shipping Method</h2>
                   <ShippingModes
-                    id="shippingMethods"
+                    id="shippingMethod"
                     input={input}
                     handleOnChange={handleOnChange}
                   />
@@ -216,6 +206,7 @@ const CheckoutForm = () => {
                 <PaymentModes input={input} handleOnChange={handleOnChange} />
                 <div className="woo-next-place-order-btn-wrap mt-5">
                   <button
+                    id="placeorder"
                     className="btn woo-next-large-black-btn woo-next-place-order-btn btn-secondary"
                     type="submit"
                   >
@@ -225,17 +216,14 @@ const CheckoutForm = () => {
               </div>
 
               {/* Checkout or Shipping Update Loading*/}
-              {(checkoutLoading || shippingLoading) && (
-                <p>Processing Order...</p>
+              {checkoutLoading && (
+                <div className="checkout-info">Processing Order...</div>
               )}
               {requestError && (
-                <p>
-                  Error : {requestError} 😕 Please select another shipping
-                  method.
-                </p>
+                <div className="checkout-info">Error 😕 {requestError}</div>
               )}
               {shippingError && (
-                <p>Error : {shippingError} 😕 Please check the form.</p>
+                <div className="checkout-info">Error 😕 {shippingError}</div>
               )}
             </div>
           </div>

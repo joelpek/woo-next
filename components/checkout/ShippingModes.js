@@ -7,7 +7,7 @@ import Error from "./Error";
 const ShippingModes = ({ input, handleOnChange }) => {
   return (
     <div className="mt-3">
-      <Error errors={input.errors} fieldName={"shippingMethods"} />
+      <Error errors={input.errors} fieldName={"shippingMethod"} />
       {/*Free shipping*/}
       <div className="form-check woo-next-shipping-input-container mt-2">
         <label className="form-check-label">
@@ -15,7 +15,7 @@ const ShippingModes = ({ input, handleOnChange }) => {
             onChange={handleOnChange}
             value="free_shipping:5"
             className="form-check-input"
-            name="shippingMethods"
+            name="shippingMethod"
             type="radio"
           />
           <span className="woo-next-shipping-content">Free shipping</span>
@@ -28,7 +28,7 @@ const ShippingModes = ({ input, handleOnChange }) => {
             onChange={handleOnChange}
             value="flat_rate:6"
             className="form-check-input"
-            name="shippingMethods"
+            name="shippingMethod"
             type="radio"
           />
           <span className="woo-next-shipping-content">Flat rate</span>
@@ -41,7 +41,7 @@ const ShippingModes = ({ input, handleOnChange }) => {
             onChange={handleOnChange}
             value="local_pickup:7"
             className="form-check-input"
-            name="shippingMethods"
+            name="shippingMethod"
             type="radio"
           />
           <span className="woo-next-shipping-content">Local pickup</span>

@@ -10,7 +10,7 @@ const Nav = () => {
       {/*Branding*/}
       <div className="woo-next-branding">
         <Link href="/">
-          <a className="">
+          <a aria-hidden className="">
             {/* ePro Consulting */}
             <img src="/logo.svg" alt="logo"></img>
           </a>
@@ -22,22 +22,22 @@ const Nav = () => {
         <ul className="navbar-nav">
           <li className="nav-item">
             <Link href="/products">
-              <a className="nav-link">Products</a>
+              <a aria-hidden className="nav-link">Products</a>
             </Link>
           </li>
           <li className="nav-item">
             <Link href="/account">
-              <a className="nav-link">My Account</a>
+              <a aria-hidden className="nav-link">My Account</a>
             </Link>
           </li>
           {/* <li className="nav-item">
             <Link href="/t-and-c">
-              <a className="nav-link">Terms and Conditions</a>
+              <a aria-hidden className="nav-link">Terms and Conditions</a>
             </Link>
           </li>
           <li className="nav-item">
             <Link href="/privacy-policy">
-              <a className="nav-link">Privacy Policy</a>
+              <a aria-hidden className="nav-link">Privacy Policy</a>
             </Link>
           </li> */}
         </ul>

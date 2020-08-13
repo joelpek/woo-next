@@ -2,7 +2,6 @@ import { setContext } from "apollo-link-context";
 import { onError } from "apollo-link-error";
 import { ApolloLink, fromPromise, concat } from "apollo-link";
 import { getRefreshTokenLink } from "apollo-link-refresh-token";
-import { TokenRefreshLink } from "apollo-link-token-refresh";
 import fetch from "node-fetch";
 import { ApolloClient } from "apollo-client";
 import { InMemoryCache } from "apollo-cache-inmemory";
@@ -11,14 +10,14 @@ import { IntrospectionFragmentMatcher } from "apollo-cache-inmemory";
 import introspectionQueryResultData from "../fragmentTypes";
 import clientConfig from "./../clientConfig";
 // import { setContext } from "@apollo/client/link/context";
-import GET_RTOKEN_QUERY from "../queries/get-refresh-token";
-import GET_TOKEN_MUTATION from "../mutations/get-token";
 import { v4 } from "uuid";
 import cookie from "cookie";
 import wooConfig from "../wooConfig";
+import GET_RTOKEN_QUERY from "../queries/get-refresh-token";
+import GET_TOKEN_MUTATION from "../mutations/get-token";
 
-const session = process.browser ? localStorage.getItem("woo-session") : null;
-/*console.log(session);*/
+let session = "";
+let refreshToken = "";
 
 // Fragment matcher.
 const fragmentMatcher = new IntrospectionFragmentMatcher({
@@ -33,10 +32,12 @@ export const middleware = new ApolloLink((operation, forward) => {
   /**
    * If session data exist in local storage, set value as session header.
    */
-  // session = process.browser ? localStorage.getItem("woo-session") : null;
+  session = process.browser ? localStorage.getItem("woo-session") : null;
+  refreshToken = process.browser ? localStorage.getItem("woo-refresh") : null;
   /*console.log(session);*/
+  // TODO: ensure the new token is set as the header
   if (session) {
-    operation.setContext(({ ctx = {} }) => ({
+    operation.setContext(() => ({
       headers: {
         "woocommerce-session": `Session ${session}`,
       },
@@ -60,73 +61,47 @@ export const afterware = new ApolloLink((operation, forward) => {
     const {
       response: { headers },
     } = context;
+    console.log("CONTEXT HEADERS1:", headers);
     const session = headers.get("woocommerce-session");
 
     if (session) {
       // /*console.log(session);*/
 
-      // Remove session data if session destroyed. TODO: EXPIRED TOKEN HANDLING
-      // if ("false" === session) {
-      //   // localStorage.removeItem("woo-session");
-      //   // localStorage.clear();
-      //   // Update session new data if changed.
-      // } else 
-      if (localStorage.getItem("woo-session") !== session) {
+      // Remove session data if session destroyed.
+      if ("false" === session) {
+        alert("false === session");
+        localStorage.removeItem("woo-session");
+        // localStorage.clear();
+        //   // Update session new data if changed.
+      } else if (localStorage.getItem("woo-session") !== session) {
         localStorage.setItem("woo-session", headers.get("woocommerce-session"));
       }
     }
-
     return response;
   });
 });
 
 const errorLink = onError(
   ({ graphQLErrors, networkError, operation, forward }) => {
-    localStorage.clear();
-    alert("Sorry, we were forced to reset your session. We apologize for any inconvenience. 👷")
-    location.reload();
+    // TODO: case-specific error handling
+    // localStorage.clear();
+    // alert("Sorry, we were forced to reset your session. We apologize for any inconvenience. 👷")
+    // location.reload();
+    // TODO: Expired token error handling
+    if (networkError)
+      console.log("errorLink listing networkError:", networkError);
     if (graphQLErrors) {
-      // debugger;
-      /*console.log("errorLink listing graphQLErrors:", graphQLErrors);*/
-    }
-    for (let err of graphQLErrors) {
-      if (err.message === "Expired token") {
-        
-        // debugger;
-        return fromPromise(
-          fetchNewAccessToken()
-            //   getNewToken()
-            .then(() => {
-              // Store the new tokens for your auth link
-              /*console.log("fnat then");*/
-            })
-            .catch((error) => {
-              // Handle token refresh errors e.g clear stored tokens, redirect to login, ...
-              /*console.log(error);*/
-              alert(
-                "Something went wrong... Please let us know if the problem persists and we'll do our best to assist you."
-              );
-              return;
-            })
-        )
-          .filter((value) => Boolean(value))
-          .flatMap(() => {
-            // retry the request, returning the new observable
-            return forward(operation);
-          });
-      }
-      switch (err.extensions.code) {
-        case "UNAUTHENTICATED":
-          // error code is set to UNAUTHENTICATED
-          // when AuthenticationError thrown in resolver
-
+      console.log("errorLink listing graphQLErrors:", graphQLErrors);
+      for (let err of graphQLErrors) {
+        if (err.message === "Expired token") {
+          // debugger;
+          debugger;
           return fromPromise(
-            getNewToken()
-              .then(({ accessToken, refreshToken }) => {
+            fetchNewAccessToken()
+              // getNewToken()
+              .then(() => {
                 // Store the new tokens for your auth link
-                /*console.log(refreshToken);*/
-
-                return accessToken;
+                /*console.log("fnat then");*/
               })
               .catch((error) => {
                 // Handle token refresh errors e.g clear stored tokens, redirect to login, ...
@@ -142,6 +117,35 @@ const errorLink = onError(
               // retry the request, returning the new observable
               return forward(operation);
             });
+        }
+        switch (err.extensions.code) {
+          case "UNAUTHENTICATED":
+            // error code is set to UNAUTHENTICATED
+            // when AuthenticationError thrown in resolver
+
+            return fromPromise(
+              fetchNewAccessToken()
+                .then(({ accessToken, refreshToken }) => {
+                  // Store the new tokens for your auth link
+                  /*console.log(refreshToken);*/
+
+                  return accessToken;
+                })
+                .catch((error) => {
+                  // Handle token refresh errors e.g clear stored tokens, redirect to login, ...
+                  /*console.log(error);*/
+                  alert(
+                    "Something went wrong... Please let us know if the problem persists and we'll do our best to assist you."
+                  );
+                  return;
+                })
+            )
+              .filter((value) => Boolean(value))
+              .flatMap(() => {
+                // retry the request, returning the new observable
+                return forward(operation);
+              });
+        }
       }
     }
     if (networkError) {
@@ -153,45 +157,21 @@ const errorLink = onError(
   }
 );
 
-const getNewToken = () => {
-  // /*console.log("getNewToken");*/
-};
-
 const authLink = setContext((_, { headers }) => {
-  let a = async () => {
-    return await client
-      .query({
-        query: GET_RTOKEN_QUERY,
-      })
-      .then((response) => /*console.log(response.data))*/response)
-      .catch((err) => /* console.error(err) */ err);
-  };
-  /*console.log(a());*/
-
-  let refreshToken = a();
-  let authToken = null;
-
-  let tokenMutationInput = {
-    clientMutationId: v4,
-    refreshToken: refreshToken,
-  };
-  // get the authentication token from cookie if it exists
   if (typeof window === "undefined") {
     // server side code
-    // refreshToken = cookie.parse(req.headers.cookie.refreshToken); // TODO: get req object from ? || 20_08_07: REST API query via fetch in module "apollo-link-refresh-token"
-    /*console.log(refreshToken);*/
+    // get the authentication token from cookie if it exists
+    console.log("server-side!");
   } else {
     // client side code
-    refreshToken = localStorage.getItem("token");
+    session = localStorage.getItem("woo-session");
+    console.log("client-side");
   }
-  cookie;
-
-  /*console.log("test authlink");*/
-  authToken = fetchNewAccessToken(); // return the headers to the context so httpLink can read them
+  // return the headers to the context so httpLink can read them
   return {
     headers: {
       ...headers,
-      authorization: authToken ? `Bearer ${authToken}` : "",
+      authorization: session ? `Bearer ${session}` : "",
     },
   };
 });
@@ -210,12 +190,12 @@ const isTokenValid = (token) => {
 };
 
 const fetchNewAccessToken = async () => {
-  /*console.log("hi from fnat");*/
   if (!wooConfig.graphqlUrl) {
     throw new Error("graphqlUrl must be set to use refresh token link");
   }
+  refreshToken = headers.get("X-JWT-Refresh");
 
-  // TODO: FIX ONCE AND FOR ALL
+  // TODO: fix
   try {
     const fetchResult = await fetch(wooConfig.graphqlUrl, {
       method: "POST",
@@ -224,7 +204,7 @@ const fetchNewAccessToken = async () => {
         query: `
         mutation MyMutation {
           __typename
-          refreshJwtAuthToken(input: {clientMutationId: "abc", jwtRefreshToken: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczpcL1wvc3RvcmUuZXByby5kZXYiLCJpYXQiOjE1OTY4MDgwNjUsIm5iZiI6MTU5NjgwODA2NSwiZXhwIjoxNTk2OTgwODY1LCJkYXRhIjp7ImN1c3RvbWVyX2lkIjoiYWFhOWYxOTIyOTUxNWQwOTAxYjgxMjJkYzFjYTRlMzUifX0.mhcLKZQqHCoBzu6gObXXqACq9QBRF--wGIE1omMVYzQ"}) { 
+          refreshJwtAuthToken(input: {clientMutationId: ${v4()}, jwtRefreshToken: ${refreshToken}}) { 
             authToken
           }
         }
@@ -233,9 +213,7 @@ const fetchNewAccessToken = async () => {
     });
 
     const refreshResponse = await fetchResult.json();
-    /*console.log(refreshResponse);*/
-    // debugger;
-
+    /*
     if (
       !refreshResponse ||
       !refreshResponse.data ||
@@ -244,13 +222,50 @@ const fetchNewAccessToken = async () => {
     ) {
       // debugger;
       return undefined;
-    }
-
-    return refreshResponse.data.refreshTokens.accessToken;
+    } */
+    console.log("refRes", refreshResponse.substr(0,10));
+    return refreshResponse.data;
   } catch (e) {
     throw new Error("Failed to fetch fresh access token");
   }
 };
+
+// const fetchCurrentRefreshToken = async () => {
+//   // TODO: fix
+//   try {
+//     const fetchResult = await fetch(wooConfig.graphqlUrl, {
+//       method: "POST",
+//       headers: { "Content-Type": "application/json" },
+//       body: JSON.stringify({
+//         query: `
+//             {
+//               viewer {
+//                 jwtRefreshToken
+//                 id
+//                 username
+//               }
+//             }
+//           `,
+//       }),
+//     });
+
+//     const refreshResponse = await fetchResult.json();
+//     /*
+//     if (
+//       !refreshResponse ||
+//       !refreshResponse.data ||
+//       !refreshResponse.data.refreshTokens ||
+//       !refreshResponse.data.refreshTokens.accessToken
+//     ) {
+//       // debugger;
+//       return undefined;
+//     } */
+//     console.log(refreshResponse);
+//     return refreshResponse.data;
+//   } catch (e) {
+//     throw new Error("Failed to fetch fresh access token");
+//   }
+// };
 
 const refreshTokenLink = getRefreshTokenLink({
   authorizationHeaderKey: "Authorization",
@@ -276,9 +291,8 @@ const refreshTokenLink = getRefreshTokenLink({
 
 const apolloLink = ApolloLink.from([
   errorLink,
-  // authLink,
+  authLink,
   refreshTokenLink,
-  // TokenRefreshLink,
   middleware,
   afterware,
   createHttpLink({

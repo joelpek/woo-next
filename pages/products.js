@@ -5,6 +5,7 @@ import PRODUCTS_AND_CATEGORIES_QUERY from "../queries/product-and-categories";
 
 const Products = (props) => {
   const { products, productCategories } = props;
+  // console.log(client);
 
   return (
     <Layout>
@@ -24,10 +25,10 @@ Products.getInitialProps = async () => {
   const result = await client.query({
     query: PRODUCTS_AND_CATEGORIES_QUERY,
   });
-
+  console.log("result", result);
   return {
-    productCategories: result.data.productCategories.nodes,
-    products: result.data.products.nodes,
+    productCategories: [] /* result.data.productCategories.nodes */,
+    products: [] /* result.data.products.nodes */,
   };
 };
 
