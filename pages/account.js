@@ -13,27 +13,27 @@ const Account = (props) => {
         <hr />
         <ul className="account-links">
           <li>
-            <a href="">Dashboard</a>
+            <a aria-hidden href="">Dashboard</a>
           </li>
           <li>
-            <a href="">Orders</a>
+            <a aria-hidden href="">Orders</a>
           </li>
           <li>
-            <a href="">Downloads</a>
+            <a aria-hidden href="">Downloads</a>
           </li>
           <li>
-            <a href="">Addresses</a>
+            <a aria-hidden href="">Addresses</a>
           </li>
           <li>
-            <a href="">Account details</a>
+            <a aria-hidden href="">Account details</a>
           </li>
           <li>
-            <a href="">Logout</a>
+            <a aria-hidden href="">Logout</a>
           </li>
         </ul>
         <div className="container mt-5 mb-4">
           {/* {signedIn && <p>
-            Hello {account.name} (not {account.name})? <a href="#">Log out</a>
+            Hello {account.name} (not {account.name})? <a aria-hidden href="#">Log out</a>
             <br /> <br /> */}
             From your account dashboard you can view your recent orders, manage
             your shipping and billing addresses, and edit your password and

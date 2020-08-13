@@ -75,18 +75,22 @@ const AddToCart = (props) => {
   // Add to Cart Mutation.
   const [
     addToCart,
-    { data: addToCartRes, loading: addToCartLoading, error: addToCartError },
+    { data: addToCartRes, loading: addToCartLoading, error: addToCartError, refetch: addToCartRefetch },
   ] = useMutation(ADD_TO_CART, {
     variables: {
       input: productQryInput,
     },
     onCompleted: () => {
       // console.warn( 'completed ADD_TO_CART' );
+      console.log(addToCartRes)
 
       // If error.
       if (addToCartError) {
-        setRequestError(addToCartError.graphQLErrors[0].message);
-        /*console.log((addToCartError);*/
+        console.log(addToCartError);
+        if (addToCartError.graphQLErrors) {
+          setRequestError(addToCartError.graphQLErrors[0].message);
+        //   /*console.log((addToCartError);*/
+        }
       }
 
       // On Success:
@@ -97,8 +101,8 @@ const AddToCart = (props) => {
       setShowViewCart(true);
     },
     onError: (error) => {
-      if (error) {
-        /*console.log((error);*/
+      console.log(error);
+      if (error.graphQLErrors) {
         setRequestError(error.graphQLErrors[0].message);
       }
     },

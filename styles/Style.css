@@ -13,6 +13,19 @@ a:hover {
   padding: 60px;
 }
 
+#yourorder {
+  overflow-x: auto;
+}
+
+
+.content-wrap-cart {
+  overflow-x: auto;
+}
+
+#placeorder, #gotocheckout {
+  margin-bottom: 3vh;
+}
+
 .content-wrap {
   height: 84vh;
   padding: 60px;
@@ -120,7 +133,6 @@ body {
 .footer-wrap {
   display: flex;
   flex-direction: column;
-  height: 12vh;
   position: absolute;
   bottom: 0;
   width: 100%;
@@ -136,7 +148,7 @@ body {
   width: 100%;
 }
 
-.shippingMethods {
+.shippingMethod {
   margin-bottom: 3vh;
 }
 
@@ -580,8 +592,15 @@ td.woo-next-cart-qty {
   .woo-next-cart-and-menu-btn {
     transform: scale(0.7);
   }
+  #page-container {
+    padding-bottom: 400px;
+  }
 }
 
 p {
   margin: 0;
+}
+
+.checkout-info {
+  padding-top: 4vh;
 }

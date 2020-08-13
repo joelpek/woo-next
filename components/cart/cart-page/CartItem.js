@@ -60,7 +60,7 @@ const CartItem = ({
             handleRemoveProductClick(event, item.cartKey, products)
           }
         >
-          <i className="fa fa-times-circle" />
+          <i aria-hidden className="fa fa-times-circle" />
         </span>
       </th>
       <td className="woo-next-cart-element cart-img">
@@ -68,7 +68,7 @@ const CartItem = ({
           as={`/product/${item.slug}-${item.productId}`}
           href={`/product/?slug=${item.slug}-${item.productId}`}
         >
-          <a className="cartItemImgLink">
+          <a aria-hidden className="cartItemImgLink">
             {/* ePro Consulting */}
             <img
               width="64"

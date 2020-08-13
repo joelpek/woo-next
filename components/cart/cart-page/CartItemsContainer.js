@@ -48,7 +48,7 @@ const CartItemsContainer = () => {
     onError: (error) => {
       if (error) {
         /*console.log((error);*/
-        if (error.graphQLErrors[0]) {
+        if (error.graphQLErrors) {
           setRequestError(error.graphQLErrors[0].message);
         }
       }
@@ -66,7 +66,7 @@ const CartItemsContainer = () => {
     onError: (error) => {
       if (error) {
         /*console.log((error);*/
-        if (error.graphQLErrors[0]) {
+        if (error.graphQLErrors) {
           setRequestError(error.graphQLErrors[0].message);
         }
       }
@@ -143,7 +143,7 @@ const CartItemsContainer = () => {
               </tr>
             </thead>
             <tbody>
-              {cart.products.length &&
+              {cart.products?.length &&
                 cart.products.map((item, i) => (
                   <CartItem
                     key={item.productId}
@@ -165,7 +165,7 @@ const CartItemsContainer = () => {
               disabled={clearCartProcessing}
             >
               <span className="woo-next-cart">Clear Cart &nbsp;</span>
-              <i className="fas fa-trash"></i>
+              <i aria-hidden className="fas fa-trash"></i>
             </button>
             {clearCartProcessing ? <p>Clearing...</p> : ""}
           </div>
@@ -207,11 +207,11 @@ const CartItemsContainer = () => {
                 </tbody>
               </table>
               <Link href="/checkout">
-                <button className="btn btn-secondary woo-next-large-black-btn">
+                <button id="gotocheckout" className="btn btn-secondary woo-next-large-black-btn">
                   <span className="woo-next-cart-checkout-txt">
                     Proceed to Checkout &nbsp;
                   </span>
-                  <i className="fas fa-long-arrow-alt-right" />
+                  <i aria-hidden className="fas fa-long-arrow-alt-right" />
                 </button>
               </Link>
             </div>
@@ -225,7 +225,7 @@ const CartItemsContainer = () => {
               <span className="woo-next-cart-checkout-txt">
                 Add New Products &nbsp;
               </span>
-              <i className="fas fa-long-arrow-alt-right" />
+              <i aria-hidden className="fas fa-long-arrow-alt-right" />
             </button>
           </Link>
         </div>

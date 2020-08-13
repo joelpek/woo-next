@@ -2,7 +2,7 @@ import Head from "next/head";
 import { AppProvider } from "./context/AppContext";
 import Header from "./Header";
 import Footer from "./Footer";
-import "../styles/Style.css";
+// import "../styles/Style.css";
 import client from "./ApolloClient";
 import { ApolloProvider } from "@apollo/react-hooks";
 
