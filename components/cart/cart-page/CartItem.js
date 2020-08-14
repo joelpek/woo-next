@@ -49,7 +49,7 @@ const CartItem = ({
       }
     }
   };
-  //   /*console.log((item);*/
+  //   console.log(item)
   return (
     <tr className="woo-next-cart-item" key={item.productId}>
       <th className="woo-next-cart-element woo-next-cart-el-close cart-rmv">
@@ -69,7 +69,7 @@ const CartItem = ({
           href={`/product/?slug=${item.slug}-${item.productId}`}
         >
           <a aria-hidden className="cartItemImgLink">
-            {/* ePro Consulting */}
+            {/* ePro.dev */}
             <img
               width="64"
               src={item.image.sourceUrl}

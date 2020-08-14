@@ -25,37 +25,33 @@ const AddToCart = (props) => {
    *
    * @return {void}
    */
-  // const handleAddToCartLocalStorage = () => {
-  //
-  // 	// If component is rendered client side.
-  // 	if ( process.browser ) {
-  //
-  // 		let existingCart = localStorage.getItem( 'woo-next-cart' );
-  //
-  // 		// If cart has item(s) already, update existing or add new item.
-  // 		if ( existingCart ) {
-  //
-  // 			existingCart = JSON.parse( existingCart );
-  //
-  // 			const qtyToBeAdded = 1;
-  //
-  // 			const updatedCart = updateCart( existingCart, product, qtyToBeAdded );
-  //
-  // 			setCart( updatedCart );
-  //
-  // 		} else {
-  // 			/**
-  // 			 * If No Items in the cart, create an empty array and add one.
-  // 			 * @type {Array}
-  // 			 */
-  // 			const newCart = addFirstProduct( product );
-  // 			setCart( newCart );
-  // 		}
-  //
-  // 		// Show View Cart Button
-  // 		setShowViewCart( true )
-  // 	}
-  // };
+  const handleAddToCartLocalStorage = () => {
+    // If component is rendered client side.
+    if (process.browser) {
+      let existingCart = localStorage.getItem("woo-next-cart");
+
+      // If cart has item(s) already, update existing or add new item.
+      if (existingCart) {
+        existingCart = JSON.parse(existingCart);
+
+        const qtyToBeAdded = 1;
+
+        const updatedCart = updateCart(existingCart, product, qtyToBeAdded);
+
+        setCart(updatedCart);
+      } else {
+        /**
+         * If No Items in the cart, create an empty array and add one.
+         * @type {Array}
+         */
+        const newCart = addFirstProduct(product);
+        setCart(newCart);
+      }
+
+      // Show View Cart Button
+      setShowViewCart(true);
+    }
+  };
 
   // Get Cart Data.
   const { loading, error, data, refetch } = useQuery(GET_CART, {
@@ -75,22 +71,29 @@ const AddToCart = (props) => {
   // Add to Cart Mutation.
   const [
     addToCart,
-    { data: addToCartRes, loading: addToCartLoading, error: addToCartError, refetch: addToCartRefetch },
+    {
+      data: addToCartRes,
+      loading: addToCartLoading,
+      error: addToCartError,
+      refetch: addToCartRefetch,
+    },
   ] = useMutation(ADD_TO_CART, {
     variables: {
       input: productQryInput,
     },
     onCompleted: () => {
       // console.warn( 'completed ADD_TO_CART' );
-      console.log(addToCartRes)
+      console.log(data);
 
       // If error.
-      if (addToCartError) {
+      if (error) {
+        console.log(error);
         console.log(addToCartError);
-        if (addToCartError.graphQLErrors) {
-          setRequestError(addToCartError.graphQLErrors[0].message);
-        //   /*console.log((addToCartError);*/
-        }
+        
+        // if (addToCartError.graphQLErrors) {
+          setRequestError(error.graphQLErrors[0].message);
+          console.log(addToCartError);
+        // }
       }
 
       // On Success:
@@ -123,7 +126,7 @@ const AddToCart = (props) => {
       {/*	Check if its an external product then put its external buy link */}
       {"ExternalProduct" === product.__typename ? (
         <a
-          href={product.externalUrl}
+          // href={product.externalUrl}
           target="_blank"
           className="btn btn-secondary"
         >

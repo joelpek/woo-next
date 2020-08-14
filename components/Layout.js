@@ -1,18 +1,12 @@
 import Head from "next/head";
-import { AppProvider } from "./context/AppContext";
 import Header from "./Header";
 import Footer from "./Footer";
-// import "../styles/Style.css";
-import client from "./ApolloClient";
-import { ApolloProvider } from "@apollo/react-hooks";
 
 const Layout = (props) => {
   return (
-    <AppProvider>
-        <ApolloProvider client={client}>
           <div>
             <Head>
-              <title>ePro Consulting - IT insight on demand</title>
+              <title>ePro.dev - IT insight on demand</title>
               <link
                 rel="stylesheet"
                 href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
@@ -55,8 +49,6 @@ const Layout = (props) => {
               </div>
             </div>
           </div>
-        </ApolloProvider>
-    </AppProvider>
   );
 };
 

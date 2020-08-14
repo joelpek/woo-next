@@ -8,9 +8,9 @@ import { v4 } from "uuid";
  */
 export const getFloatVal = (string) => {
   let floatValue = string.match(/[+-]?\d+(\,\d+)?/g)[0];
-  /*console.log((floatValue);*/
+  console.log(floatValue)
   floatValue = floatValue.replace(",", ".");
-  /*console.log((floatValue);*/
+  console.log(floatValue)
   // console.log(parseFloat(floatValue).toFixed(2));
   return null !== floatValue ? parseFloat(floatValue) : "";
 };
@@ -232,11 +232,11 @@ export const getFormattedCart = (data) => {
     const total = getFloatVal(givenProducts[i].total);
     // TODO: dynamic tax calculation
     let subtotal = getFloatVal(givenProducts[i].subtotal);
-    /*console.log((subtotal);*/
+    console.log(subtotal)
     let subtotalTax = getFloatVal(givenProducts[i].subtotalTax);
-    /*console.log((subtotalTax);*/
+    console.log(subtotalTax)
     let totalPlustax = subtotal + subtotalTax;
-    /*console.log((totalPlustax);*/
+    console.log(totalPlustax)
 
     function currencyFormat(num) {
       return (
