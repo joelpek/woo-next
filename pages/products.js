@@ -22,13 +22,14 @@ const Products = (props) => {
 };
 
 Products.getInitialProps = async () => {
+  // console.log("client", client);
   const result = await client.query({
     query: PRODUCTS_AND_CATEGORIES_QUERY,
   });
-  console.log("result", result);
+  // console.log("result", result);
   return {
-    productCategories: [] /* result.data.productCategories.nodes */,
-    products: [] /* result.data.products.nodes */,
+    productCategories: result.data.productCategories.nodes,
+    products: result.data.products.nodes,
   };
 };
 

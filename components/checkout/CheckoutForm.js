@@ -51,7 +51,7 @@ const CheckoutForm = () => {
       // Update cart in the localStorage.
       const updatedCart = getFormattedCart(data);
       localStorage.setItem("woo-next-cart", JSON.stringify(updatedCart));
-      //   /*console.log((updatedCart);*/
+      //   console.log(updatedCart)
       // Update cart data in React Context.
       setCart(updatedCart);
     },
@@ -107,7 +107,7 @@ const CheckoutForm = () => {
     },
     onError: (error) => {
       if (error) {
-        /*console.log((error);*/
+        console.log(error)
         debugger;
       }
     },
@@ -164,7 +164,7 @@ const CheckoutForm = () => {
     if (null !== orderData) {
       // Call the checkout mutation when the value for orderData changes/updates.
       checkout();
-      //   /*console.log((checkoutResponse);*/
+      //   console.log(checkoutResponse)
     }
   }, [orderData]);
 

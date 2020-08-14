@@ -11,7 +11,7 @@ const Nav = () => {
       <div className="woo-next-branding">
         <Link href="/">
           <a aria-hidden className="">
-            {/* ePro Consulting */}
+            {/* ePro.dev */}
             <img src="/logo.svg" alt="logo"></img>
           </a>
         </Link>

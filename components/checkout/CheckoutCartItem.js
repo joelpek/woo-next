@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 const CheckoutCartItem = ({ item }) => {
-  //   /*console.log((item);*/
+  //   console.log(item)
   return (
     <tr className="woo-next-cart-item" key={item.productId}>
       <td className="woo-next-cart-element">

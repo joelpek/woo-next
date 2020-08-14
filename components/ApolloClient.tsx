@@ -15,6 +15,16 @@ import cookie from "cookie";
 import { v4 } from "uuid";
 import GET_RTOKEN_QUERY from "../queries/get-refresh-token";
 
+import { IntrospectionFragmentMatcher } from "apollo-cache-inmemory";
+
+import introspectionQueryResultData from "../fragmentTypes.json";
+
+
+// Fragment matcher.
+const fragmentMatcher = new IntrospectionFragmentMatcher({
+  introspectionQueryResultData,
+});
+
 const isServer = () => typeof window === "undefined";
 
 let getRefreshToken = async () => {
@@ -195,7 +205,7 @@ export function createApolloClient(
 ) {
   const httpLink = new HttpLink({
     uri: wooConfig.graphqlUrl,
-    credentials: "include",
+    // credentials: "include",
     fetch,
   });
 
@@ -221,23 +231,51 @@ export function createApolloClient(
     },
     fetchAccessToken: async () => {
       // TODO: fix
-      let refreshToken = getRefreshToken();
-      const fetchResult = await fetch(wooConfig.graphqlUrl, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          query: `
-            mutation MyMutation {
-              __typename
-              refreshJwtAuthToken(input: {clientMutationId: ${v4()}, jwtRefreshToken: ${refreshToken}}) { 
-                authToken
-              }
-            }
-          `,
-        }),
-      });
+      var myHeaders = new Headers();
+      myHeaders.append("Content-Type", "application/json");
+      myHeaders.append("Access-Control-Allow-Origin", "null");
+      myHeaders.append("Authorization", "wp_woocommerce_session_f2cd03fd35f7b44f3a9e8109f5055d3a=6e1478153ee13b985181f532d7fdd0b6%7C%7C1597511573%7C%7C1597507973%7C%7C8b79092fedc38caca49be9873f85030a");
+      
+      var graphql = JSON.stringify({
+        query: `mutation MyMutation {
+          __typename
+          refreshJwtAuthToken(input: {clientMutationId: ${v4()}, jwtRefreshToken: ${refreshToken}}) { 
+            authToken
+          }
+        }`,
+        variables: {}
+      })
+
+      let fetchResult = await fetch("https://store.epro.dev/graphql", {
+        method: 'POST',
+        headers: myHeaders,
+        body: graphql,
+        redirect: 'follow'
+      })
+      
+        // .then(response => response.text())
+        // .then(result => console.log(result))
+        // .catch(error => console.log('error', error));
+
+
+
+      // let refreshToken = getRefreshToken();
+      // const fetchResult = await fetch(wooConfig.graphqlUrl, {
+      //   method: "POST",
+      //   headers: { "Content-Type": "application/json" },
+      //   body: JSON.stringify({
+      //     query: `
+      //       mutation MyMutation {
+      //         __typename
+      //         refreshJwtAuthToken(input: {clientMutationId: ${v4()}, jwtRefreshToken: ${refreshToken}}) { 
+      //           authToken
+      //         }
+      //       }
+      //     `,
+      //   }),
+      // });
       const refreshResponse = await fetchResult.json();
-      console.log("refres1", refreshResponse.substr(0, 10));
+      console.log("refRes1", refreshResponse);
       return refreshResponse["data"]["authToken"];
     },
     handleFetch: (accessToken) => {
@@ -267,7 +305,7 @@ export function createApolloClient(
   return new ApolloClient({
     ssrMode: typeof window === "undefined", // Disables forceFetch on the server (so queries are only run once)
     link: ApolloLink.from([refreshLink, authLink, errorLink, httpLink]),
-    cache: new InMemoryCache().restore(initialState),
+    cache: new InMemoryCache({ fragmentMatcher }).restore(initialState)
   });
 }
 
