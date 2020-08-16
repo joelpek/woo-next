@@ -1,15 +1,21 @@
-import { setContext } from "apollo-link-context";
-import { onError } from "apollo-link-error";
-import { ApolloLink, fromPromise, concat } from "apollo-link";
+import { onError } from "@apollo/client/link/error";
 import { getRefreshTokenLink } from "apollo-link-refresh-token";
 import fetch from "node-fetch";
-import { ApolloClient } from "apollo-client";
-import { InMemoryCache } from "apollo-cache-inmemory";
-import { createHttpLink } from "apollo-link-http";
-import { IntrospectionFragmentMatcher } from "apollo-cache-inmemory";
+// import { ApolloClient } from "apollo-client";
+import {
+  ApolloClient,
+  InMemoryCache,
+  NormalizedCacheObject,
+  HttpLink,
+  ApolloLink,
+  fromPromise,
+  IntrospectionFragmentMatcher,
+  createHttpLink,
+} from "@apollo/client";
+
 import introspectionQueryResultData from "../fragmentTypes";
-import clientConfig from "./../clientConfig";
-// import { setContext } from "@apollo/client/link/context";
+import clientConfig from "../clientConfig";
+import { setContext } from "@apollo/client/link/context";
 import { v4 } from "uuid";
 import cookie from "cookie";
 import wooConfig from "../wooConfig";
@@ -34,7 +40,7 @@ export const middleware = new ApolloLink((operation, forward) => {
    */
   session = process.browser ? localStorage.getItem("woo-session") : null;
   refreshToken = process.browser ? localStorage.getItem("woo-refresh") : null;
-  console.log(session)
+  console.log(session);
   // TODO: ensure the new token is set as the header
   if (session) {
     operation.setContext(() => ({
@@ -101,11 +107,11 @@ const errorLink = onError(
               // getNewToken()
               .then(() => {
                 // Store the new tokens for your auth link
-                console.log("fnat then")
+                console.log("fnat then");
               })
               .catch((error) => {
                 // Handle token refresh errors e.g clear stored tokens, redirect to login, ...
-                console.log(error)
+                console.log(error);
                 alert(
                   "Something went wrong... Please let us know if the problem persists and we'll do our best to assist you."
                 );
@@ -127,13 +133,13 @@ const errorLink = onError(
               fetchNewAccessToken()
                 .then(({ accessToken, refreshToken }) => {
                   // Store the new tokens for your auth link
-                  console.log(refreshToken)
+                  console.log(refreshToken);
 
                   return accessToken;
                 })
                 .catch((error) => {
                   // Handle token refresh errors e.g clear stored tokens, redirect to login, ...
-                  console.log(error)
+                  console.log(error);
                   alert(
                     "Something went wrong... Please let us know if the problem persists and we'll do our best to assist you."
                   );
@@ -149,7 +155,7 @@ const errorLink = onError(
       }
     }
     if (networkError) {
-      console.log(`[Network error]: ${networkError}`)
+      console.log(`[Network error]: ${networkError}`);
       // if you would also like to retry automatically on
       // network errors, we recommend that you use
       // apollo-link-retry
@@ -223,7 +229,7 @@ const fetchNewAccessToken = async () => {
       // debugger;
       return undefined;
     } */
-    console.log("refRes", refreshResponse.substr(0,10));
+    console.log("refRes", refreshResponse.substr(0, 10));
     return refreshResponse.data;
   } catch (e) {
     throw new Error("Failed to fetch fresh access token");
@@ -274,17 +280,17 @@ const refreshTokenLink = getRefreshTokenLink({
   getRefreshToken: () => session,
   isAccessTokenValid: (accessToken) => isTokenValid(accessToken),
   isUnauthenticatedError: (graphQLError) => {
-    console.log("hi from rtl")
+    console.log("hi from rtl");
     const { extensions } = graphQLError;
     if (
       extensions &&
       extensions.code &&
       extensions.code === "UNAUTHENTICATED"
     ) {
-      console.log("hi from rtl")
+      console.log("hi from rtl");
       return true;
     }
-    console.log("bye from rtl")
+    console.log("bye from rtl");
     return false;
   },
 });

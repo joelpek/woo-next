@@ -1,23 +1,23 @@
 import React from "react";
 import Head from "next/head";
-import { ApolloClient } from "apollo-client";
-import { InMemoryCache, NormalizedCacheObject } from "apollo-cache-inmemory";
-import { HttpLink } from "apollo-link-http";
-import { setContext } from "apollo-link-context";
+import { ApolloClient,InMemoryCache, NormalizedCacheObject, HttpLink, ApolloLink } from "@apollo/client";
+import { setContext } from "@apollo/client/link/context";
 import fetch from "isomorphic-unfetch";
 import { TokenRefreshLink } from "apollo-link-token-refresh";
 import jwtDecode from "jwt-decode";
 import wooConfig from "../wooConfig";
 import { getAccessToken, setAccessToken } from "./accessToken";
-import { onError } from "apollo-link-error";
-import { ApolloLink } from "apollo-link";
+import { onError } from "@apollo/client/link/error";
 import cookie from "cookie";
 import { v4 } from "uuid";
 import GET_RTOKEN_QUERY from "../queries/get-refresh-token";
-
 import { IntrospectionFragmentMatcher } from "apollo-cache-inmemory";
-
 import introspectionQueryResultData from "../fragmentTypes.json";
+
+let session = "";
+
+session = process.browser ? localStorage.getItem("woo-session") : null;
+
 
 
 // Fragment matcher.
