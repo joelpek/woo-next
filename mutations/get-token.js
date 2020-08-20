@@ -1,4 +1,4 @@
-import gql from "graphql-tag";
+import { gql } from "@apollo/client";
 
 const GET_TOKEN_MUTATION = gql`
 mutation getNewToken($cMId: String!, $jRT: String!) {

@@ -1,11 +1,12 @@
 import { useState, useContext } from "react";
-import { useQuery, useMutation } from "@apollo/react-hooks";
+import { useQuery, useMutation } from "@apollo/client";
 import { AppContext } from "../context/AppContext";
 import { addFirstProduct, getFormattedCart, updateCart } from "../../functions";
 import Link from "next/link";
 import { v4 } from "uuid";
 import GET_CART from "../../queries/get-cart";
 import ADD_TO_CART from "../../mutations/add-to-cart";
+import client from "../ApolloClient";
 
 const AddToCart = (props) => {
   const { product } = props;
@@ -25,39 +26,39 @@ const AddToCart = (props) => {
    *
    * @return {void}
    */
-  const handleAddToCartLocalStorage = () => {
-    // If component is rendered client side.
-    if (process.browser) {
-      let existingCart = localStorage.getItem("woo-next-cart");
+  // const handleAddToCartLocalStorage = () => {
+  //   // If component is rendered client side.
+  //   if (process.browser) {
+  //     let existingCart = localStorage.getItem("woo-next-cart");
 
-      // If cart has item(s) already, update existing or add new item.
-      if (existingCart) {
-        existingCart = JSON.parse(existingCart);
+  //     // If cart has item(s) already, update existing or add new item.
+  //     if (existingCart) {
+  //       existingCart = JSON.parse(existingCart);
 
-        const qtyToBeAdded = 1;
+  //       const qtyToBeAdded = 1;
 
-        const updatedCart = updateCart(existingCart, product, qtyToBeAdded);
+  //       const updatedCart = updateCart(existingCart, product, qtyToBeAdded);
 
-        setCart(updatedCart);
-      } else {
-        /**
-         * If No Items in the cart, create an empty array and add one.
-         * @type {Array}
-         */
-        const newCart = addFirstProduct(product);
-        setCart(newCart);
-      }
+  //       setCart(updatedCart);
+  //     } else {
+  //       /**
+  //        * If No Items in the cart, create an empty array and add one.
+  //        * @type {Array}
+  //        */
+  //       const newCart = addFirstProduct(product);
+  //       setCart(newCart);
+  //     }
 
-      // Show View Cart Button
-      setShowViewCart(true);
-    }
-  };
+  //     // Show View Cart Button
+  //     setShowViewCart(true);
+  //   }
+  // };
 
   // Get Cart Data.
   const { loading, error, data, refetch } = useQuery(GET_CART, {
     notifyOnNetworkStatusChange: true,
     onCompleted: () => {
-      // console.warn( 'completed GET_CART' );
+      console.warn("completed GET_CART");
 
       // Update cart in the localStorage.
       const updatedCart = getFormattedCart(data);
@@ -65,6 +66,12 @@ const AddToCart = (props) => {
 
       // Update cart data in React Context.
       setCart(updatedCart);
+    },
+    onError: () => {
+      console.log(error);
+    },
+    onLoading: () => {
+      console.log(loading);
     },
   });
 
@@ -75,7 +82,7 @@ const AddToCart = (props) => {
       data: addToCartRes,
       loading: addToCartLoading,
       error: addToCartError,
-      refetch: addToCartRefetch,
+      // refetch: addToCartRefetch,
     },
   ] = useMutation(ADD_TO_CART, {
     variables: {
@@ -89,16 +96,16 @@ const AddToCart = (props) => {
       if (error) {
         console.log(error);
         console.log(addToCartError);
-        
+
         // if (addToCartError.graphQLErrors) {
-          setRequestError(error.graphQLErrors[0].message);
-          console.log(addToCartError);
+        setRequestError(error.graphQLErrors[0].message);
+        console.log(addToCartError);
         // }
       }
 
       // On Success:
       // 1. Make the GET_CART query to update the cart with new values in React context.
-      refetch();
+      addToCartRefetch();
 
       // 2. Show View Cart Button
       setShowViewCart(true);
@@ -115,13 +122,13 @@ const AddToCart = (props) => {
     // handleAddToCartLocalStorage();
     setRequestError(null);
     addToCart();
-    // console.log("added to cart");
+    console.log("added to cart");
   };
 
   return (
     <div>
       {/* Add To Cart Loading*/}
-      {addToCartLoading && <p>Adding to Cart...</p>}
+      {/* {addToCartLoading && <p>Adding to Cart...</p>} */}
 
       {/*	Check if its an external product then put its external buy link */}
       {"ExternalProduct" === product.__typename ? (

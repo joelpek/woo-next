@@ -1,44 +1,107 @@
 import React from "react";
 import Head from "next/head";
-import { ApolloClient } from "apollo-client";
-import { InMemoryCache, NormalizedCacheObject } from "apollo-cache-inmemory";
-import { HttpLink } from "apollo-link-http";
-import { setContext } from "apollo-link-context";
-import fetch from "isomorphic-unfetch";
+import {
+  ApolloClient,
+  InMemoryCache,
+  NormalizedCacheObject,
+  HttpLink,
+  ApolloLink,
+} from "@apollo/client";
+import { setContext } from "@apollo/client/link/context";
+import { onError } from "@apollo/client/link/error";
 import { TokenRefreshLink } from "apollo-link-token-refresh";
+import fetch from "isomorphic-unfetch";
 import jwtDecode from "jwt-decode";
-import wooConfig from "../wooConfig";
+import { graphqlUrl } from "../wooConfig";
 import { getAccessToken, setAccessToken } from "./accessToken";
-import { onError } from "apollo-link-error";
-import { ApolloLink } from "apollo-link";
-import cookie from "cookie";
 import { v4 } from "uuid";
-import GET_RTOKEN_QUERY from "../queries/get-refresh-token";
-
-import { IntrospectionFragmentMatcher } from "apollo-cache-inmemory";
-
-import introspectionQueryResultData from "../fragmentTypes.json";
-
-
-// Fragment matcher.
-const fragmentMatcher = new IntrospectionFragmentMatcher({
-  introspectionQueryResultData,
-});
+import cookie from "cookie";
+import { useMemo } from 'react'
+import { create } from "domain";
+// import GET_RTOKEN_QUERY from "../queries/get-refresh-token";
+// import CREATE_USER_MUTATION from "../mutations/create-user";
 
 const isServer = () => typeof window === "undefined";
 
-let getRefreshToken = async () => {
-  // headers.get("X-JWT-Refresh");
-  await fetch("", {
-    method: "POST",
-    body: JSON.stringify({
-      query: GET_RTOKEN_QUERY,
-    }),
-    // credentials: "include",
-    // headers: {
-    //   cookie: ``,
-    // },
+let jwtRefreshToken = isServer()
+  ? ""
+  : JSON.stringify(localStorage.getItem("refresh"));
+
+// TODO: implement server-side in-memory ONLY storage of authtoken (client should only get access to refreshtoken stored in localstorage under key "jwtRefreshToken")
+let getNewAuthToken = async () => {
+  let myHeaders = new Headers();
+  myHeaders.append("Content-Type", "application/json");
+  let sAT;
+
+  let graphql = JSON.stringify({
+    query: `
+      mutation {
+        refreshJwtAuthToken(input: {
+          clientMutationId: ${JSON.stringify(v4())}, 
+          jwtRefreshToken: ${jwtRefreshToken}
+        }) {
+          authToken
+        }
+      }
+    `,
   });
+
+  const fetchResult = await fetch(graphqlUrl, {
+    method: "POST",
+    headers: myHeaders,
+    body: graphql,
+  });
+
+  // Your response to manipulate
+  const refreshResponse = await fetchResult.json();
+  console.log("getNewAuthTokenResponse", refreshResponse);
+  sAT = refreshResponse.data.refreshJwtAuthToken.authToken;
+  return sAT;
+};
+
+let createTempUser = async () => {
+  let myHeaders = new Headers();
+  myHeaders.append("Content-Type", "application/json");
+
+  let cMId = JSON.stringify(v4());
+  let usernm = JSON.stringify(v4());
+  let passwd = JSON.stringify(v4());
+  let email = JSON.stringify(v4().toString().substr(0, 9) + "@eprodevusers.aa");
+  let graphql = JSON.stringify({
+    query: `
+      mutation RegisterUser {
+        registerUser(
+          input: {
+            clientMutationId: ${cMId},
+            username: ${usernm},
+            password: ${passwd},
+            email: ${email}
+          }
+        )
+        {
+          user {
+            jwtAuthToken
+            jwtRefreshToken
+          }
+        }
+      }
+    `,
+  });
+
+  const fetchResult = await fetch(graphqlUrl, {
+    method: "POST",
+    headers: myHeaders,
+    body: graphql,
+  });
+  const refreshResponse = await fetchResult.json();
+  console.log("ctuResponse", refreshResponse);
+  isServer()
+    ? (document.cookie = `refresh=${refreshResponse.data.registerUser.user.jwtRefreshToken}; Secure; HttpOnly`)
+    : localStorage.setItem(
+        "refresh",
+        refreshResponse.data.registerUser.user.jwtRefreshToken
+      );
+  return refreshResponse.data.registerUser.user.jwtAuthToken;
 };
 
 /**
@@ -77,8 +140,8 @@ export function withApollo(PageComponent: any, { ssr = true } = {}) {
     WithApollo.displayName = `withApollo(${displayName})`;
   }
 
-  if (ssr || PageComponent.getInitialProps) {
-    WithApollo.getInitialProps = async (ctx: any) => {
+  if (ssr || PageComponent.getStaticProps) {
+    WithApollo.getStaticProps = async (ctx: any) => {
       const {
         AppTree,
         ctx: { req, res },
@@ -89,28 +152,12 @@ export function withApollo(PageComponent: any, { ssr = true } = {}) {
       if (isServer()) {
         console.log("hi from server");
 
-        // const cookies = cookie.parse(req.headers.cookie);
-        // console.log(req);
+        const cookies = cookie.parse(req.headers.cookie);
+        console.log(req);
 
-        // if (cookies.authentication) {
-        //   // const response = await fetch("http://localhost:4000/refresh_token", {
-        //   //   method: "POST",
-        //   //   credentials: "include",
-        //   //   headers: {
-        //   //     cookie: "jid=" + cookies.jid,
-        //   //   },
-        //   // });
-
-        //   const response = await fetch("URL", {
-        //     method: "POST",
-        //     credentials: "include",
-        //     headers: {
-        //       cookie: `Bearer ${getRefreshToken()}`,
-        //     },
-        //   });
-        //   const data = await response.json();
-        //   serverAccessToken = data.accessToken;
-        // }
+        if (cookies.authentication) {
+          serverAccessToken = await getNewAuthToken();
+        }
       }
 
       // Run all GraphQL queries in the component tree
@@ -120,8 +167,8 @@ export function withApollo(PageComponent: any, { ssr = true } = {}) {
         serverAccessToken
       ));
 
-      const pageProps = PageComponent.getInitialProps
-        ? await PageComponent.getInitialProps(ctx)
+      const pageProps = PageComponent.getStaticProps
+        ? await PageComponent.getStaticProps(ctx)
         : {};
 
       // Only on the server
@@ -133,9 +180,13 @@ export function withApollo(PageComponent: any, { ssr = true } = {}) {
         }
 
         if (ssr) {
+          console.log(ssr);
+
           try {
             // Run all GraphQL queries
-            const { getDataFromTree } = await import("@apollo/react-ssr");
+            const { getDataFromTree } = await import(
+              "@apollo/client/react/ssr"
+            );
             await getDataFromTree(
               <AppTree
                 pageProps={{
@@ -153,8 +204,8 @@ export function withApollo(PageComponent: any, { ssr = true } = {}) {
           }
         }
 
-        // getDataFromTree does not call componentWillUnmount
-        // head side effect therefore need to be cleared manually
+        // // getDataFromTree does not call componentWillUnmount
+        // // head side effect therefore need to be cleared manually
         Head.rewind();
       }
 
@@ -168,7 +219,6 @@ export function withApollo(PageComponent: any, { ssr = true } = {}) {
       };
     };
   }
-
   return WithApollo;
 }
 
@@ -178,7 +228,7 @@ let apolloClient: ApolloClient<NormalizedCacheObject> | null = null;
  * Always creates a new apollo client on the server
  * Creates or reuses apollo client in the browser.
  */
-function initApolloClient(initState: any, serverAccessToken?: string) {
+export function initApolloClient(initState: any, serverAccessToken?: string) {
   // Make sure to create a new client for every server-side request so that data
   // isn't shared between connections (which would be bad)
   if (isServer()) {
@@ -203,12 +253,6 @@ export function createApolloClient(
   initialState = {},
   serverAccessToken?: string
 ) {
-  const httpLink = new HttpLink({
-    uri: wooConfig.graphqlUrl,
-    // credentials: "include",
-    fetch,
-  });
-
   const refreshLink = new TokenRefreshLink({
     accessTokenField: "accessToken",
     isTokenValidOrUndefined: () => {
@@ -231,49 +275,53 @@ export function createApolloClient(
     },
     fetchAccessToken: async () => {
       // TODO: fix
-      var myHeaders = new Headers();
+      let myHeaders = new Headers();
       myHeaders.append("Content-Type", "application/json");
       myHeaders.append("Access-Control-Allow-Origin", "null");
-      myHeaders.append("Authorization", "wp_woocommerce_session_f2cd03fd35f7b44f3a9e8109f5055d3a=6e1478153ee13b985181f532d7fdd0b6%7C%7C1597511573%7C%7C1597507973%7C%7C8b79092fedc38caca49be9873f85030a");
-      
-      var graphql = JSON.stringify({
-        query: `mutation MyMutation {
-          __typename
-          refreshJwtAuthToken(input: {clientMutationId: ${v4()}, jwtRefreshToken: ${refreshToken}}) { 
-            authToken
-          }
-        }`,
-        variables: {}
-      })
-
-      let fetchResult = await fetch("https://store.epro.dev/graphql", {
-        method: 'POST',
-        headers: myHeaders,
-        body: graphql,
-        redirect: 'follow'
-      })
-      
-        // .then(response => response.text())
-        // .then(result => console.log(result))
-        // .catch(error => console.log('error', error));
-
-
+      // myHeaders.append(
+      //   "Authorization",
+      //   "insert auth key here"
+      // );
 
       // let refreshToken = getRefreshToken();
-      // const fetchResult = await fetch(wooConfig.graphqlUrl, {
+      // console.log(refreshToken);
+
+      // let fetchResult = await fetch(graphqlUrl, {
       //   method: "POST",
-      //   headers: { "Content-Type": "application/json" },
-      //   body: JSON.stringify({
-      //     query: `
-      //       mutation MyMutation {
-      //         __typename
-      //         refreshJwtAuthToken(input: {clientMutationId: ${v4()}, jwtRefreshToken: ${refreshToken}}) { 
-      //           authToken
-      //         }
-      //       }
-      //     `,
-      //   }),
+      //   headers: myHeaders,
+      //   body: graphql,
+      //   redirect: "follow",
       // });
+
+      let graphql = JSON.stringify({
+        query: `
+            mutation MyMutation {
+              __typename
+              refreshJwtAuthToken(input: {clientMutationId: ${v4()}, jwtRefreshToken: ${refreshToken}}) { 
+                authToken
+              }
+            }`,
+        variables: {},
+      });
+      // .then(response => response.text())
+      // .then(result => console.log(result))
+      // .catch(error => console.log('error', error));
+
+      const fetchResult = await fetch(graphqlUrl, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          query: graphql,
+          // gql`
+          //   mutation MyMutation {
+          //     __typename
+          //     refreshJwtAuthToken(input: {clientMutationId: ${v4()}, jwtRefreshToken: ${refreshToken}}) {
+          //         authToken
+          //       }
+          //     }
+          //   `,
+        }),
+      });
       const refreshResponse = await fetchResult.json();
       console.log("refRes1", refreshResponse);
       return refreshResponse["data"]["authToken"];
@@ -297,16 +345,228 @@ export function createApolloClient(
     };
   });
 
+  let session = "";
+  let refreshToken = "";
+
+  /**
+   * Middleware operation
+   * If we have a session token in localStorage, add it to the GraphQL request as a Session header.
+   */
+  const middleware = new ApolloLink((operation, forward) => {
+    /**
+     * If session data exist in local storage, set value as session header.
+     */
+    session = process.browser ? localStorage.getItem("woo-session") : null;
+    refreshToken = process.browser ? localStorage.getItem("woo-refresh") : null;
+    console.log(session);
+    // TODO: ensure the new token is set as the header
+    if (session) {
+      operation.setContext(() => ({
+        headers: {
+          "woocommerce-session": `Session ${session}`,
+        },
+      }));
+    }
+
+    return forward(operation);
+  });
+
+  const afterware = new ApolloLink((operation, forward) => {
+    return forward(operation).map((response) => {
+      /**
+       * Check for session header and update session in local storage accordingly.
+       */
+      const context = operation.getContext();
+      console.log(context);
+
+      const {
+        response: { headers },
+      } = context;
+      const session = headers.get("woocommerce-session");
+
+      if (session) {
+        // Remove session data if session destroyed.
+        if ("false" === session) {
+          localStorage.removeItem("woo-session");
+
+          // Update session new data if changed.
+        } else if (localStorage.getItem("woo-session") !== session) {
+          localStorage.setItem(
+            "woo-session",
+            headers.get("woocommerce-session")
+          );
+        }
+      }
+
+      return response;
+    });
+  });
+
   const errorLink = onError(({ graphQLErrors, networkError }) => {
-    // console.log(graphQLErrors);
-    // console.log(networkError);
+    console.log(graphQLErrors);
+    console.log(networkError);
+  });
+
+  const httpLink = new HttpLink({
+    uri: graphqlUrl,
+    // credentials: "include",
+    fetch: fetch,
   });
 
   return new ApolloClient({
-    ssrMode: typeof window === "undefined", // Disables forceFetch on the server (so queries are only run once)
-    link: ApolloLink.from([refreshLink, authLink, errorLink, httpLink]),
-    cache: new InMemoryCache({ fragmentMatcher }).restore(initialState)
+    ssrMode: typeof window === "undefined",
+    // Disables forceFetch on the server (so queries are only run once)
+    link: ApolloLink.from([
+      // refreshLink,
+      // authLink,
+      // middleware,
+      // afterware,
+      errorLink,
+      httpLink,
+    ]),
+    cache: new InMemoryCache({
+      possibleTypes: {
+        Node: [
+          "Coupon",
+          "ContentType",
+          "Taxonomy",
+          "User",
+          "Comment",
+          "EnqueuedScript",
+          "EnqueuedStylesheet",
+          "MediaItem",
+          "Page",
+          "Post",
+          "Category",
+          "PostFormat",
+          "Tag",
+          "UserRole",
+          "ProductCategory",
+          "PaColor",
+          "ProductVariation",
+          "VariableProduct",
+          "PaSize",
+          "ProductTag",
+          "ProductType",
+          "ShippingClass",
+          "VisibleProduct",
+          "Customer",
+          "Order",
+          "TaxRate",
+          "Refund",
+          "ShippingMethod",
+          "ExternalProduct",
+          "GroupProduct",
+          "Menu",
+          "MenuItem",
+          "Plugin",
+          "SimpleProduct",
+          "Theme",
+        ],
+        ContentNode: ["MediaItem", "Page", "Post"],
+        UniformResourceIdentifiable: [
+          "User",
+          "MediaItem",
+          "Page",
+          "Post",
+          "Category",
+          "PostFormat",
+          "Tag",
+          "ProductCategory",
+          "PaColor",
+          "PaSize",
+          "ProductTag",
+          "ProductType",
+          "ShippingClass",
+          "VisibleProduct",
+        ],
+        Commenter: ["User"],
+        EnqueuedAsset: ["EnqueuedScript", "EnqueuedStylesheet"],
+        NodeWithTitle: ["MediaItem", "Page", "Post"],
+        NodeWithAuthor: ["MediaItem", "Page", "Post"],
+        NodeWithComments: ["MediaItem", "Page", "Post"],
+        HierarchicalContentNode: ["MediaItem", "Page"],
+        ContentTemplateUnion: [
+          "DefaultTemplate",
+          "FullWidthTemplate",
+          "HomepageTemplate",
+        ],
+        ContentTemplate: [
+          "DefaultTemplate",
+          "FullWidthTemplate",
+          "HomepageTemplate",
+        ],
+        TermNode: [
+          "Category",
+          "PostFormat",
+          "Tag",
+          "ProductCategory",
+          "PaColor",
+          "PaSize",
+          "ProductTag",
+          "ProductType",
+          "ShippingClass",
+          "VisibleProduct",
+        ],
+        NodeWithContentEditor: ["Page", "Post"],
+        NodeWithFeaturedImage: ["Page", "Post"],
+        NodeWithRevisions: ["Page", "Post"],
+        NodeWithPageAttributes: ["Page"],
+        MenuItemLinkable: [
+          "Page",
+          "Post",
+          "Category",
+          "Tag",
+          "ProductCategory",
+          "ProductTag",
+        ],
+        NodeWithExcerpt: ["Post"],
+        NodeWithTrackbacks: ["Post"],
+        HierarchicalTermNode: ["Category", "ProductCategory"],
+        ContentRevisionUnion: ["Post", "Page"],
+        Product: [
+          "VariableProduct",
+          "ExternalProduct",
+          "GroupProduct",
+          "SimpleProduct",
+        ],
+        ProductAttribute: ["GlobalProductAttribute", "LocalProductAttribute"],
+        MenuItemObjectUnion: [
+          "Post",
+          "Page",
+          "Category",
+          "Tag",
+          "ProductCategory",
+          "ProductTag",
+        ],
+      },
+    }).restore(initialState),
   });
 }
 
-export default createApolloClient();
+export function initializeApollo(initialState = null) {
+  const _apolloClient = apolloClient ?? createApolloClient()
+
+  // If your page has Next.js data fetching methods that use Apollo Client, the initial state
+  // gets hydrated here
+  if (initialState) {
+    // Get existing cache, loaded during client side data fetching
+    const existingCache = _apolloClient.extract()
+    // Restore the cache using the data passed from getStaticProps/getServerSideProps
+    // combined with the existing cached data
+    _apolloClient.cache.restore({ ...existingCache, ...initialState })
+  }
+  // For SSG and SSR always create a new Apollo Client
+  if (typeof window === 'undefined') return _apolloClient
+  // Create the Apollo Client once in the client
+  if (!apolloClient) apolloClient = _apolloClient
+
+  return _apolloClient
+}
+
+export function useApollo(initialState) {
+  const store = useMemo(() => initializeApollo(initialState), [initialState])
+  return store
+}
+
+export default createApolloClient()

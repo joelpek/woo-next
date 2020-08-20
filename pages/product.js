@@ -22,7 +22,7 @@ const Product = withRouter((props) => {
                 width="200"
                 srcSet={product.image.srcSet}
               />
-              <p
+              <div
                 dangerouslySetInnerHTML={{
                   __html: product.description,
                 }}

@@ -15,9 +15,7 @@ const Categories = (props) => {
 };
 
 Categories.getInitialProps = async () => {
-  const result = await client.query({
-    query: GET_CATEGORIES_QUERY,
-  });
+  const result = await client({query: GET_CATEGORIES_QUERY});
   return {
     productCategories: result.data.productCategories.nodes,
   };

@@ -4,13 +4,13 @@ import GET_PAGES from "../queries/get-pages";
 
 const Privacy = (props) => {
   const { pages } = props;
-  console.log(pages)
+  console.log(pages);
 
-  let content
+  let content;
   pages.forEach((e) => {
     if (e.pageId === 3) content = e.content;
   });
-  console.log(content)
+  console.log(content);
   return (
     <Layout>
       <div className="mt-5 text-center">
@@ -27,12 +27,9 @@ const Privacy = (props) => {
 };
 
 Privacy.getInitialProps = async () => {
-  const res = await client.query({
-    query: GET_PAGES,
-  });
-
+  const res = await client.query({ query: GET_PAGES });
   return {
-    pages: res.data.pages.nodes
+    pages: res.data.pages.nodes,
   };
 };
 

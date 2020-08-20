@@ -3,6 +3,7 @@ import { withRouter } from "next/router";
 import client from "../components/ApolloClient";
 import Product from "../components/Product";
 import PRODUCT_BY_CATEGORY_ID from "../queries/product-by-category";
+import { from } from "@apollo/client";
 
 const Category = withRouter((props) => {
   const { categoryName, products } = props;

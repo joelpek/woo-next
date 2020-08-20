@@ -6,7 +6,7 @@ import PaymentModes from "./PaymentModes";
 import ShippingModes from "./ShippingModes";
 import { AppContext } from "../context/AppContext";
 import validateAndSanitizeCheckoutForm from "../../validator/checkout";
-import { useMutation, useQuery } from "@apollo/react-hooks";
+import { useMutation, useQuery } from "@apollo/client";
 import { getFormattedCart, createCheckoutData } from "../../functions";
 import OrderSuccess from "./OrderSuccess";
 import ShippingSuccess from "./ShippingSuccess";

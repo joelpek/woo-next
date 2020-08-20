@@ -1,6 +1,6 @@
-import gql from "graphql-tag";
+// import { gql } from "@apollo/client";
 
-const GET_RTOKEN_QUERY = gql`
+const GET_RTOKEN_QUERY = `
   {
     viewer {
       jwtRefreshToken

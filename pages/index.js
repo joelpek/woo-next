@@ -24,6 +24,7 @@ Index.getInitialProps = async () => {
   const result = await client.query({
     query: PRODUCTS_AND_CATEGORIES_QUERY,
   });
+  console.log(result);
 
   return {
     productCategories: result.data.productCategories.nodes,

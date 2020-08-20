@@ -19,7 +19,7 @@ const Product = (props) => {
 
           <Link
             as={`/product/${product.slug}-${product.productId}`}
-            href={`/product/?slug=${product.slug}-${product.productId}`}
+            href={`/product?slug=${product.slug}-${product.productId}`}
           >
             <a>
               <img className="link-image" src={imgSrc} alt="Product image" />
