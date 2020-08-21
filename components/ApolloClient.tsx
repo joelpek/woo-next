@@ -16,22 +16,19 @@ import { graphqlUrl } from "../wooConfig";
 import { getAccessToken, setAccessToken } from "./accessToken";
 import { v4 } from "uuid";
 import cookie from "cookie";
-import { useMemo } from 'react'
-import { create } from "domain";
-// import GET_RTOKEN_QUERY from "../queries/get-refresh-token";
-// import CREATE_USER_MUTATION from "../mutations/create-user";
 
 const isServer = () => typeof window === "undefined";
+let tokens = {};
 
-let jwtRefreshToken = isServer()
-  ? ""
-  : JSON.stringify(localStorage.getItem("refresh"));
+// reuse local refresh token for continuing gQL query session
+let jwtRefreshToken =
+  // isServer() ? "" :
+  JSON.stringify(localStorage.getItem("jwtRefreshToken"));
 
 // TODO: implement server-side in-memory ONLY storage of authtoken (client should only get access to refreshtoken stored in localstorage under key "jwtRefreshToken")
 let getNewAuthToken = async () => {
   let myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");
-  let sAT;
 
   let graphql = JSON.stringify({
     query: `
@@ -54,55 +51,54 @@ let getNewAuthToken = async () => {
 
   // Your response to manipulate
   const refreshResponse = await fetchResult.json();
-  console.log("getNewAuthTokenResponse", refreshResponse);
-  sAT = refreshResponse.data.refreshJwtAuthToken.authToken;
-  return sAT;
+  setAccessToken(refreshResponse.data.refreshJwtAuthToken.authToken);
+  return getAccessToken();
 };
 
-let createTempUser = async () => {
-  let myHeaders = new Headers();
-  myHeaders.append("Content-Type", "application/json");
+// let createTempUser = async () => {
+//   let myHeaders = new Headers();
+//   myHeaders.append("Content-Type", "application/json");
 
-  let cMId = JSON.stringify(v4());
-  let usernm = JSON.stringify(v4());
-  let passwd = JSON.stringify(v4());
-  let email = JSON.stringify(v4().toString().substr(0, 9) + "@eprodevusers.aa");
-  let graphql = JSON.stringify({
-    query: `
-      mutation RegisterUser {
-        registerUser(
-          input: {
-            clientMutationId: ${cMId},
-            username: ${usernm},
-            password: ${passwd},
-            email: ${email}
-          }
-        )
-        {
-          user {
-            jwtAuthToken
-            jwtRefreshToken
-          }
-        }
-      }
-    `,
-  });
+//   let cMId = JSON.stringify(v4());
+//   let usernm = JSON.stringify(v4());
+//   let passwd = JSON.stringify(v4());
+//   let email = JSON.stringify(v4().toString().substr(0, 9) + "@eprodevusers.aa");
+//   let graphql = JSON.stringify({
+//     query: `
+//       mutation RegisterUser {
+//         registerUser(
+//           input: {
+//             clientMutationId: ${cMId},
+//             username: ${usernm},
+//             password: ${passwd},
+//             email: ${email}
+//           }
+//         )
+//         {
+//           user {
+//             jwtAuthToken
+//             jwtRefreshToken
+//           }
+//         }
+//       }
+//     `,
+//   });
 
-  const fetchResult = await fetch(graphqlUrl, {
-    method: "POST",
-    headers: myHeaders,
-    body: graphql,
-  });
-  const refreshResponse = await fetchResult.json();
-  console.log("ctuResponse", refreshResponse);
-  isServer()
-    ? (document.cookie = `refresh=${refreshResponse.data.registerUser.user.jwtRefreshToken}; Secure; HttpOnly`)
-    : localStorage.setItem(
-        "refresh",
-        refreshResponse.data.registerUser.user.jwtRefreshToken
-      );
-  return refreshResponse.data.registerUser.user.jwtAuthToken;
-};
+//   const fetchResult = await fetch(graphqlUrl, {
+//     method: "POST",
+//     headers: myHeaders,
+//     body: graphql,
+//   });
+//   const refreshResponse = await fetchResult.json();
+//   console.log("ctuResponse", refreshResponse);
+//   isServer()
+//     ? (document.cookie = `refresh=${refreshResponse.data.registerUser.user.jwtRefreshToken}; Secure; HttpOnly`)
+//     : localStorage.setItem(
+//         "jwtRefreshToken",
+//         refreshResponse.data.registerUser.user.jwtRefreshToken
+//       );
+//   return refreshResponse.data.registerUser.user.jwtAuthToken;
+// };
 
 /**
  * Creates and provides the apolloContext
@@ -147,13 +143,11 @@ export function withApollo(PageComponent: any, { ssr = true } = {}) {
         ctx: { req, res },
       } = ctx;
 
-      let serverAccessToken = "";
-
       if (isServer()) {
         console.log("hi from server");
 
         const cookies = cookie.parse(req.headers.cookie);
-        console.log(req);
+        console.log("req", req);
 
         if (cookies.authentication) {
           serverAccessToken = await getNewAuthToken();
@@ -253,8 +247,7 @@ export function createApolloClient(
   initialState = {},
   serverAccessToken?: string
 ) {
-  const refreshLink = new TokenRefreshLink({
-    accessTokenField: "accessToken",
+  const refreshLink = new TokenRefreshLink<{ token; refreshToken }>({
     isTokenValidOrUndefined: () => {
       const token = getAccessToken();
 
@@ -278,10 +271,7 @@ export function createApolloClient(
       let myHeaders = new Headers();
       myHeaders.append("Content-Type", "application/json");
       myHeaders.append("Access-Control-Allow-Origin", "null");
-      // myHeaders.append(
-      //   "Authorization",
-      //   "insert auth key here"
-      // );
+      myHeaders.append("Authorization", `Bearer ${serverAccessToken}`);
 
       // let refreshToken = getRefreshToken();
       // console.log(refreshToken);
@@ -303,31 +293,20 @@ export function createApolloClient(
             }`,
         variables: {},
       });
-      // .then(response => response.text())
-      // .then(result => console.log(result))
-      // .catch(error => console.log('error', error));
 
       const fetchResult = await fetch(graphqlUrl, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           query: graphql,
-          // gql`
-          //   mutation MyMutation {
-          //     __typename
-          //     refreshJwtAuthToken(input: {clientMutationId: ${v4()}, jwtRefreshToken: ${refreshToken}}) {
-          //         authToken
-          //       }
-          //     }
-          //   `,
         }),
       });
       const refreshResponse = await fetchResult.json();
       console.log("refRes1", refreshResponse);
       return refreshResponse["data"]["authToken"];
     },
-    handleFetch: (accessToken) => {
-      setAccessToken(accessToken);
+    handleFetch: (serverAccessToken) => {
+      setAccessToken(tokens);
     },
     handleError: (err) => {
       console.warn("Your refresh token is invalid. Try to relogin");
@@ -417,7 +396,7 @@ export function createApolloClient(
     ssrMode: typeof window === "undefined",
     // Disables forceFetch on the server (so queries are only run once)
     link: ApolloLink.from([
-      // refreshLink,
+      refreshLink,
       // authLink,
       // middleware,
       // afterware,
@@ -545,28 +524,28 @@ export function createApolloClient(
 }
 
 export function initializeApollo(initialState = null) {
-  const _apolloClient = apolloClient ?? createApolloClient()
+  const _apolloClient = apolloClient ?? createApolloClient();
 
   // If your page has Next.js data fetching methods that use Apollo Client, the initial state
   // gets hydrated here
   if (initialState) {
     // Get existing cache, loaded during client side data fetching
-    const existingCache = _apolloClient.extract()
+    const existingCache = _apolloClient.extract();
     // Restore the cache using the data passed from getStaticProps/getServerSideProps
     // combined with the existing cached data
-    _apolloClient.cache.restore({ ...existingCache, ...initialState })
+    _apolloClient.cache.restore({ ...existingCache, ...initialState });
   }
   // For SSG and SSR always create a new Apollo Client
-  if (typeof window === 'undefined') return _apolloClient
+  if (typeof window === "undefined") return _apolloClient;
   // Create the Apollo Client once in the client
-  if (!apolloClient) apolloClient = _apolloClient
+  if (!apolloClient) apolloClient = _apolloClient;
 
-  return _apolloClient
+  return _apolloClient;
 }
 
 export function useApollo(initialState) {
-  const store = useMemo(() => initializeApollo(initialState), [initialState])
-  return store
+  const store = useMemo(() => initializeApollo(initialState), [initialState]);
+  return store;
 }
 
-export default createApolloClient()
+export default createApolloClient();
