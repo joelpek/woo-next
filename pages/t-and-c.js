@@ -4,13 +4,13 @@ import GET_PAGES from "../queries/get-pages";
 
 const TandC = (props) => {
   const { pages } = props;
-  console.log(pages);
+  // console.log(pages);
 
   let content;
   pages.forEach((e) => {
     if (e.pageId === 627) content = e.content;
   });
-  console.log(content);
+  // console.log(content);
 
   return (
     <Layout>

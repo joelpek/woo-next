@@ -47,7 +47,7 @@ const CartItemsContainer = () => {
     },
     onError: (error) => {
       if (error) {
-        console.log(error)
+        // console.log(error)
         if (error.graphQLErrors) {
           setRequestError(error.graphQLErrors[0].message);
         }
@@ -65,7 +65,7 @@ const CartItemsContainer = () => {
     },
     onError: (error) => {
       if (error) {
-        console.log(error)
+        // console.log(error)
         if (error.graphQLErrors) {
           setRequestError(error.graphQLErrors[0].message);
         }

@@ -36,7 +36,7 @@ fetch(graphqlUrl, {
       if (err) {
         console.error('Error writing possibleTypes.json', err);
       } else {
-        console.log('Fragment types successfully extracted!');
+        // console.log('Fragment types successfully extracted!');
       }
     });
   });

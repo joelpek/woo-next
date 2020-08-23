@@ -1,9 +1,12 @@
-# Woo Next React Theme :rocket:
+# Custom WooCommerce Implementation with Next.js and React :rocket:
 
-> - This is a React WooCommerce theme, built with Next JS, Webpack, Babel, Node, GraphQl
+> - Built with Next JS, Webpack, Babel, Node, Apollo and GraphQl
+
+While this project is based on the excellent implementation detailed below, further modifications are underway to implement security features, persistent user sessions, state-of-the-art authentication and authorization, an account page and more!
 
 [Full Course Video Tutorial](https://codeytek.com/course/woocommerce-with-react-course/)
 
+<!-- 
 ## Demo Desktop :video_camera:
 
 ![](desktop-example.gif)
@@ -18,7 +21,7 @@
 
 ## Live Demo:
 
-[Live Demo Site](https://woo-next.imranhsayed.now.sh/)
+[Live Demo Site](https://epro.dev/)
 
 ## Checkout Page Demo
 
@@ -30,7 +33,8 @@
 
 ## Order Received Demo
 
-![](order-received-demo.gif)
+![](order-received-demo.gif) 
+-->
 
 # Features:
 
@@ -98,10 +102,6 @@ The master branch has the GraphQL implementation.
 
 - `dev` Runs server in development mode
 
-## Contributing :busts_in_silhouette:
-
-Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
-
 ## Versioning :bookmark_tabs:
 
 I use [Git](https://github.com/) for versioning.
@@ -110,7 +110,3 @@ I use [Git](https://github.com/) for versioning.
 
 - **[Joel Pekari](https://joelpek.github.io)**
 - **[Imran Sayed](https://twitter.com/imranhsayed)**
-
-## License :page_with_curl:
-
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details

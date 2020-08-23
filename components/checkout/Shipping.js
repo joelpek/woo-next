@@ -8,7 +8,7 @@ const { loading, error, data } = useQuery(SHIPPING_QUERY, {
   notifyOnNetworkStatusChange: true,
   onCompleted: () => {
     // Update shipping in the localStorage.
-    console.log(data);
+    // console.log(data);
     const updatedShipping = getFormattedShipping(data);
     localStorage.setItem("woo-next-shipping", JSON.stringify(updatedShipping));
 

@@ -9,7 +9,7 @@ class MyApp extends App<any> {
   render() {
     const { Component, pageProps } = this.props;
     const apolloClient = initializeApollo(pageProps.initialApolloState);
-    console.log(this.props);
+    // console.log(this.props);
     return (
       <ApolloProvider client={apolloClient}>
         <AppProvider>
@@ -22,7 +22,7 @@ class MyApp extends App<any> {
 
 export async function getStaticProps(appContext) {
   const appProps = await App.getInitialProps(appContext);
-  console.log("appProps", { ...appProps });
+  // console.log("appProps", { ...appProps });
   return { ...appProps };
 }
 

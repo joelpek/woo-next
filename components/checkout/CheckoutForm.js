@@ -107,7 +107,7 @@ const CheckoutForm = () => {
     },
     onError: (error) => {
       if (error) {
-        console.log(error)
+        // console.log(error)
         debugger;
       }
     },
@@ -124,7 +124,7 @@ const CheckoutForm = () => {
     event.preventDefault();
     const result = validateAndSanitizeCheckoutForm(input);
     if (!result.isValid) {
-      console.log(result.errors);
+      // console.log(result.errors);
       setInput({ ...input, errors: result.errors });
       return;
     }
@@ -171,7 +171,7 @@ const CheckoutForm = () => {
   // on component mount: check if shipping available and display options
   useEffect(() => {
     shipping();
-    console.log(availableShippingMethods);
+    // console.log(availableShippingMethods);
   }, []);
 
   return (

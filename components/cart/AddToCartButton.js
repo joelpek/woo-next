@@ -68,10 +68,10 @@ const AddToCart = (props) => {
       setCart(updatedCart);
     },
     onError: () => {
-      console.log(error);
+      // console.log(error);
     },
     onLoading: () => {
-      console.log(loading);
+      // console.log(loading);
     },
   });
 
@@ -90,28 +90,28 @@ const AddToCart = (props) => {
     },
     onCompleted: () => {
       // console.warn( 'completed ADD_TO_CART' );
-      console.log(data);
+      // console.log("addToCartRes", addToCartRes);
 
       // If error.
-      if (error) {
-        console.log(error);
+      if (addToCartError) {
+        // console.log(error);
         console.log(addToCartError);
 
         // if (addToCartError.graphQLErrors) {
         setRequestError(error.graphQLErrors[0].message);
-        console.log(addToCartError);
+        // console.log(addToCartError);
         // }
       }
 
       // On Success:
       // 1. Make the GET_CART query to update the cart with new values in React context.
-      addToCartRefetch();
+      refetch();
 
       // 2. Show View Cart Button
       setShowViewCart(true);
     },
     onError: (error) => {
-      console.log(error);
+      // console.log(error);
       if (error.graphQLErrors) {
         setRequestError(error.graphQLErrors[0].message);
       }
@@ -122,13 +122,13 @@ const AddToCart = (props) => {
     // handleAddToCartLocalStorage();
     setRequestError(null);
     addToCart();
-    console.log("added to cart");
+    // console.log("added to cart");
   };
 
   return (
     <div>
       {/* Add To Cart Loading*/}
-      {/* {addToCartLoading && <p>Adding to Cart...</p>} */}
+      {addToCartLoading && <p>Adding to Cart...</p>}
 
       {/*	Check if its an external product then put its external buy link */}
       {"ExternalProduct" === product.__typename ? (
