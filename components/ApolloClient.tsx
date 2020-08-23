@@ -324,8 +324,7 @@ export function createApolloClient(
     return {
       headers: {
         ...headers,
-        // authorization: token ? `bearer ${token}` : "",
-        authorization: token ? `bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczpcL1wvc3RvcmUuZXByby5kZXYiLCJpYXQiOjE1OTgyMDA5MzEsIm5iZiI6MTU5ODIwMDkzMSwiZXhwIjoxNTk4MjAxMjMxLCJkYXRhIjp7InVzZXIiOnsiaWQiOiIxIn19fQ.XldPxKU8VtbhH1qB0A8vYFMI9r-E_7hq02jHN_oKu74` : "",
+        authorization: token ? `bearer ${token}` : "",
       },
     };
   });
