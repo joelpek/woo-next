@@ -19,6 +19,7 @@ import cookie from "cookie";
 import { useMemo } from "react";
 
 const isServer = () => typeof window === "undefined";
+let tokens = {};
 
 let jwtRefreshToken =
   isServer() || !localStorage
@@ -148,8 +149,6 @@ export function withApollo(PageComponent: any, { ssr = true } = {}) {
         ctx: { req, res },
       } = ctx;
 
-      let serverAccessToken = "";
-
       if (isServer()) {
         // console.log("hi from server");
 
@@ -254,8 +253,7 @@ export function createApolloClient(
   initialState = {},
   serverAccessToken?: string
 ) {
-  const refreshLink = new TokenRefreshLink({
-    accessTokenField: "accessToken",
+  const refreshLink = new TokenRefreshLink<{ token; refreshToken }>({
     isTokenValidOrUndefined: () => {
       const token = getAccessToken();
 
@@ -300,31 +298,20 @@ export function createApolloClient(
             }`,
         variables: {},
       });
-      // .then(response => response.text())
-      // .then(result => console.log(result))
-      // .catch(error => console.log('error', error));
 
       const fetchResult = await fetch(graphqlUrl, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           query: graphql,
-          // gql`
-          //   mutation MyMutation {
-          //     __typename
-          //     refreshJwtAuthToken(input: {clientMutationId: ${v4()}, jwtRefreshToken: ${refreshToken}}) {
-          //         authToken
-          //       }
-          //     }
-          //   `,
         }),
       });
       const refreshResponse = await fetchResult.json();
       // console.log("refRes1", refreshResponse);
       return refreshResponse["data"]["authToken"];
     },
-    handleFetch: (accessToken) => {
-      setAccessToken(accessToken);
+    handleFetch: (serverAccessToken) => {
+      setAccessToken(tokens);
     },
     handleError: (err) => {
       console.warn("Your refresh token is invalid. Try to relogin");
