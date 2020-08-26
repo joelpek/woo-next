@@ -68,38 +68,31 @@ const AddToCart = (props) => {
       setCart(updatedCart);
     },
     onError: () => {
-      // console.log(error);
+      console.log(error);
     },
     onLoading: () => {
-      // console.log(loading);
+      console.log(loading);
     },
   });
 
   // Add to Cart Mutation.
   const [
     addToCart,
-    {
-      data: addToCartRes,
-      loading: addToCartLoading,
-      error: addToCartError,
-      // refetch: addToCartRefetch,
-    },
+    { data: addToCartRes, loading: addToCartLoading, error: addToCartError },
   ] = useMutation(ADD_TO_CART, {
     variables: {
       input: productQryInput,
     },
     onCompleted: () => {
       // console.warn( 'completed ADD_TO_CART' );
-      // console.log("addToCartRes", addToCartRes);
+      console.log("addToCartRes", addToCartRes);
 
-      // If error.
       if (addToCartError) {
-        // console.log(error);
         console.log(addToCartError);
 
         // if (addToCartError.graphQLErrors) {
         setRequestError(error.graphQLErrors[0].message);
-        // console.log(addToCartError);
+        console.log(addToCartError);
         // }
       }
 
@@ -111,7 +104,7 @@ const AddToCart = (props) => {
       setShowViewCart(true);
     },
     onError: (error) => {
-      // console.log(error);
+      console.log(error);
       if (error.graphQLErrors) {
         setRequestError(error.graphQLErrors[0].message);
       }
@@ -121,14 +114,26 @@ const AddToCart = (props) => {
   const handleAddToCartClick = () => {
     // handleAddToCartLocalStorage();
     setRequestError(null);
-    addToCart();
-    // console.log("added to cart");
+    console.log(cart);
+    if (cart) {
+      if (
+        cart["products"].some((e) => e.productId === productQryInput.productId)
+      ) {
+        alert("That item can only be added to the cart once.");
+      } else {
+        addToCart();
+        console.log("added to cart");
+      }
+    } else {
+      addToCart();
+      console.log("added to cart");
+    }
   };
 
   return (
     <div>
       {/* Add To Cart Loading*/}
-      {addToCartLoading && <p>Adding to Cart...</p>}
+      {/* {addToCartLoading && <p>Adding to Cart...</p>} */}
 
       {/*	Check if its an external product then put its external buy link */}
       {"ExternalProduct" === product.__typename ? (
