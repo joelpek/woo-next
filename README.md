@@ -104,8 +104,9 @@ Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c6
 
 I use [Git](https://github.com/) for versioning. 
 
-## Author :bust_in_silhouette:
+## Authors :bust_in_silhouette:
 
+* **[Joel Pekari](https://joelpek.github.io)**
 * **[Imran Sayed](https://twitter.com/imranhsayed)**
 
 ## License :page_with_curl:
