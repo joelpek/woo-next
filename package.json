@@ -28,7 +28,7 @@
     "apollo-link-refresh-token": "^0.1.2",
     "apollo-link-token-refresh": "^0.3.2",
     "cookie": "^0.4.1",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "graphql": "^14.4.2",
     "graphql-tag": "^2.10.1",
     "isomorphic-unfetch": "^3.0.0",
